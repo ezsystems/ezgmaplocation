@@ -1,5 +1,12 @@
 CHANGELOG
 
+Version 0.6
+-------------------------------------------------------------------------------
+* code cleanup
+* bigger map in edit view
+* button to grab current location
+
+
 Version 0.5
 -------------------------------------------------------------------------------
 * only compatible with eZ Publish 4
