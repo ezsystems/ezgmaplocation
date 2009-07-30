@@ -50,37 +50,45 @@ class eZGmapLocation
     */
     function attributes()
     {
-        return array( 'latitude',
-                      'longitude' );
+        static $atr = array( 'latitude',
+                             'longitude' );
+        return $atr;
     }
 
+    /*!
+     \return true if attribute is set
+    */
     function hasAttribute( $name )
     {
         return in_array( $name, $this->attributes() );
     }
 
+    /*!
+     \return attribute by name
+    */
     function attribute( $name )
     {
         switch ( $name )
         {
-            case "latitude" :
+            case 'latitude' :
             {
                 return $this->Latitude;
             }break;
-            case "longitude" :
+            case 'longitude' :
             {
                 return $this->Longitude;
             }break;
             default:
             {
                 eZDebug::writeError( "Attribute '$name' does not exist", __METHOD__ );
-                $retValue = null;
-                return $retValue;
+                return null;
             }break;
         }
     }
 
-
+    /*!
+      decoded XML
+    */
     function decodeXML( $xmlString )
     {
         $dom = new DOMDocument( '1.0', 'utf-8' );
@@ -106,7 +114,9 @@ class eZGmapLocation
         }
     }
 
-
+    /*!
+     \return xml string
+    */
     function xmlString()
     {
         $doc = new DOMDocument( '1.0', 'utf-8' );
@@ -119,11 +129,17 @@ class eZGmapLocation
         return $doc->saveXML();
     }
 
+    /*!
+     set Latitude value
+    */
     function setLatitude( $value )
     {
         $this->Latitude = $value;
     }
 
+    /*!
+      set Longitude value
+    */
     function setLongitude( $value )
     {
         $this->Longitude = $value;

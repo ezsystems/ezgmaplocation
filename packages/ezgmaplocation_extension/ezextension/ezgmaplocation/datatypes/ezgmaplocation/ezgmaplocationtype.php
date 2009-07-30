@@ -36,7 +36,7 @@
 
 class eZGmapLocationType extends eZDataType
 {
-    const DATA_TYPE_STRING = "ezgmaplocation";
+    const DATA_TYPE_STRING = 'ezgmaplocation';
 
     /*!
      Constructor
@@ -153,10 +153,9 @@ class eZGmapLocationType extends eZDataType
     */
     function serializeContentObjectAttribute( $package, $objectAttribute )
     {
-        $node = $this->createContentObjectAttributeDOMNode( $objectAttribute );
-
         $dom = new DOMDocument( '1.0', 'utf-8' );
         $success = $dom->loadXML( $objectAttribute->attribute( 'data_text' ) );
+        $node = $this->createContentObjectAttributeDOMNode( $objectAttribute );
 
         if ( $success )
         {
