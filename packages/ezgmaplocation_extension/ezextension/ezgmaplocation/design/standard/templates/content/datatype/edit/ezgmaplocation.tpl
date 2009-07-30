@@ -26,6 +26,7 @@
         var mapid = 'map_{$attribute.id}';
         var addressid = 'address_{$attribute.id}';
         var buttonid = 'button_{$attribute.id}';
+        var buttonupdateid = 'button_update_{$attribute.id}';
         var latid = 'ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude';
         var longid = 'ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude';
         {literal}
@@ -49,12 +50,13 @@
                   map.setCenter(point, 13);
                   marker = new GMarker(point);
                   map.addOverlay(marker);
-                  updateLatLngFields(point);
+                  // updateLatLngFields(point);
                 }
               }
             );
           }
         };
+
         /*
         if (window.onload)
         {
@@ -67,7 +69,11 @@
                   document.getElementById(latid).value = point.lat(); 
                   document.getElementById(longid).value = point.lng(); 
         };
-    
+
+        var updateLatLngFieldsWrapper=function(){
+		  var point = new GLatLng( map.getCenter().lat(), map.getCenter().lng() );
+		  updateLatLngFields( point );
+        };    
         //window.onload=function(ev){
         //Run any onload that we found.
         /*
@@ -99,12 +105,13 @@
               map.clearOverlays();
               map.addOverlay(new GMarker(point));
               map.panTo(point);
-              updateLatLngFields(point);
+              // updateLatLngFields(point);
               document.getElementById(addressid).value='';
           });
           
           
           document.getElementById(buttonid).onclick = showAddress;
+          document.getElementById(buttonupdateid).onclick = updateLatLngFieldsWrapper;
         }
     }
     
