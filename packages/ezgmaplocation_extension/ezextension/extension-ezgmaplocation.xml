@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension name="ezgmaplocation">
+  <file name="CHANGELOG.txt" md5sum="4009c01fa356566d24ba3c335892568f"/>
+  <file name="datatypes" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation" path="/datatypes" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation.php" path="/datatypes/ezgmaplocation" md5sum="0bf583f86ad05fd849ffd15b66f68770"/>
+  <file name="ezgmaplocationtype.php" path="/datatypes/ezgmaplocation" md5sum="5beae83fb035b69c77592fa42d770037"/>
+  <file name="design" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="standard" path="/design" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="templates" path="/design/standard" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="class" path="/design/standard/templates" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="datatype" path="/design/standard/templates/class" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="edit" path="/design/standard/templates/class/datatype" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation.tpl" path="/design/standard/templates/class/datatype/edit" md5sum="d41d8cd98f00b204e9800998ecf8427e"/>
+  <file name="view" path="/design/standard/templates/class/datatype" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation.tpl" path="/design/standard/templates/class/datatype/view" md5sum="d41d8cd98f00b204e9800998ecf8427e"/>
+  <file name="content" path="/design/standard/templates" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="datatype" path="/design/standard/templates/content" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="edit" path="/design/standard/templates/content/datatype" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation.tpl" path="/design/standard/templates/content/datatype/edit" md5sum="5dbd726a279246cfc1ece0e6864b2aa9"/>
+  <file name="view" path="/design/standard/templates/content/datatype" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="ezgmaplocation.tpl" path="/design/standard/templates/content/datatype/view" md5sum="56577aa3f9f914e9483ec54ce7904687"/>
+  <file name="gmap.tpl" path="/design/standard/templates" md5sum="b498f29d17ffda3ca4697c27668b61ae"/>
+  <file name="README.txt" md5sum="f9f522ed3fc2029435f9fac28411db0e"/>
+  <file name="samples" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="gallery.tpl" path="/samples" md5sum="0227168513483067bd0e1436dd0af732"/>
+  <file name="weblog.tpl" path="/samples" md5sum="3f320458343e7477a84ae8a6fab38dfc"/>
+  <file name="settings" md5sum="d41d8cd98f00b204e9800998ecf8427e" type="dir"/>
+  <file name="content.ini.append.php" path="/settings" md5sum="fd6343e6afc05c484895190ea588845d"/>
+  <file name="datatype.ini.append.php" path="/settings" md5sum="b0398b33cec0bc5e8816dd37bd570ba9"/>
+  <file name="design.ini.append.php" path="/settings" md5sum="32779ed9f01bce54fb6a5ba0ba94e60a"/>
+</extension>

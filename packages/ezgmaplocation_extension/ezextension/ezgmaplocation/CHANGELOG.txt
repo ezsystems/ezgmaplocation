@@ -1,0 +1,32 @@
+CHANGELOG
+
+Version 0.5
+-------------------------------------------------------------------------------
+* only compatible with eZ Publish 4
+
+Version 0.4
+-------------------------------------------------------------------------------
+* Resolved a few warnings and error messages.
+
+* Much simpler install - modified the javascript so that no template changes
+  are required in the admin design.
+
+* The editing controls will now work properly if there are multiple location
+  attributes on a single object.
+
+* In the editing view, the map will now re-center on the clicked point. This
+  makes it easier to use the click-point and zoome controls to hone in on a
+  specific point.
+
+* The edit map now defaults to a zoom-level-0 view of the globe instead of
+  a gray square.
+
+* The edit map is larger, so that the map type and directional controls don't
+  overlap.
+
+* A new template has been included, gmap.tpl. This is a multi-purpose template
+  that can be included and configured to handle several common use-cases for
+  the gmaps datatype. See the doc on the template for specifics.
+
+Version 0.3 - Initial Release
+-------------------------------------------------------------------------------
