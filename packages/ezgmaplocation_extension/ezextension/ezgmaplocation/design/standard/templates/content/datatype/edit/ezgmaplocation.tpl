@@ -113,7 +113,8 @@ else if ( window.attachEvent )
 </script>
 
 <div id="map_{$attribute.id}" style="width: 400px; height: 280px"></div>
-    <input type="text" id="address_{$attribute.id}" size="54"/><input type="button" id="button_{$attribute.id}" value="Find Address"/>
+    <input type="text" id="address_{$attribute.id}" size="54" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
+    <input type="button" id="button_{$attribute.id}" value="Find Address"/>
 </div>
 
 

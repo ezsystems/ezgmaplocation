@@ -89,9 +89,11 @@ class eZGmapLocationType extends eZDataType
 
         $latitude = $http->postVariable( $base . '_data_gmaplocation_latitude_' . $contentObjectAttribute->attribute( 'id' ) );
         $longitude = $http->postVariable( $base . '_data_gmaplocation_longitude_' . $contentObjectAttribute->attribute( 'id' ) );
+        $address = $http->postVariable( $base . '_data_gmaplocation_address_' . $contentObjectAttribute->attribute( 'id' ) );
+        $address = htmlentities( $address, ENT_QUOTES , 'UTF-8' );
 
 
-        $location = new eZGmapLocation( $latitude, $longitude );
+        $location = new eZGmapLocation( $latitude, $longitude, $address );
 
         $contentObjectAttribute->setContent( $location );
         return true;
@@ -112,14 +114,21 @@ class eZGmapLocationType extends eZDataType
 
     function metaData( $contentObjectAttribute )
     {
-        return $contentObjectAttribute->attribute( "data_text" );
+        $location = new eZGmapLocation( '', '', '' );
+        $location->decodeXML( $contentObjectAttribute->attribute( "data_text" ) );
+        return $location->attribute( 'address' ) . ' ' . $location->attribute( 'latitude' ) . ', ' . $location->attribute( 'longitude' );
+    }
+
+    function isIndexable()
+    {
+        return true;
     }
 
     function title( $contentObjectAttribute, $name = null )
     {
         $location = new eZGmapLocation( '', '', '' );
         $location->decodeXML( $contentObjectAttribute->attribute( "data_text" ) );
-        return $location->attribute('latitude') . ', ' . $location->attribute('longitude');
+        return $location->attribute( 'address' ) . ' [' . $location->attribute( 'latitude' ) . ', ' . $location->attribute( 'longitude' ) . ']';
     }
 
     function hasObjectAttributeContent( $contentObjectAttribute )
@@ -144,6 +153,7 @@ class eZGmapLocationType extends eZDataType
             {
                 $location->setLatitude('');
                 $location->setLongitude('');
+                $location->setAddress('');
             }
             $contentObjectAttribute->setAttribute( "data_text", $location->xmlString() );
             $contentObjectAttribute->setContent( $location );

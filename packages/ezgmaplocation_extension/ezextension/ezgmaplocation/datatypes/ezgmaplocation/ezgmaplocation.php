@@ -43,11 +43,13 @@ class eZGmapLocation
      *
      * @param $latitude
      * @param $longitude
+     * @param $address
      */
-    function __construct( $latitude, $longitude )
+    function __construct( $latitude, $longitude, $address )
     {
         $this->Latitude = $latitude;
         $this->Longitude = $longitude;
+        $this->Address = $address;
     }
 
     /**
@@ -58,7 +60,8 @@ class eZGmapLocation
     function attributes()
     {
         static $atr = array( 'latitude',
-                             'longitude' );
+                             'longitude',
+                             'address' );
         return $atr;
     }
 
@@ -91,6 +94,10 @@ class eZGmapLocation
             {
                 return $this->Longitude;
             }break;
+            case 'address' :
+            {
+                return $this->Address;
+            }break;
             default:
             {
                 eZDebug::writeError( "Attribute '$name' does not exist", __METHOD__ );
@@ -122,11 +129,13 @@ class eZGmapLocation
 
             $this->Latitude = $locationElement->getAttribute( 'latitude' );
             $this->Longitude = $locationElement->getAttribute( 'longitude' );
+            $this->Address = $locationElement->getAttribute( 'address' );
         }
         else
         {
             $this->Latitude = 0;
             $this->Longitude = 0;
+            $this->Address = '';
         }
     }
 
@@ -141,6 +150,7 @@ class eZGmapLocation
         $root = $doc->createElement( 'ezgmaplocation' );
         $root->setAttribute( 'latitude', $this->Latitude );
         $root->setAttribute( 'longitude', $this->Longitude );
+        $root->setAttribute( 'address', $this->Address );
         $doc->appendChild( $root );
 
         return $doc->saveXML();
@@ -169,16 +179,33 @@ class eZGmapLocation
     }
 
     /**
-     * Strore the Latitude value
+     * Sets Address value
+     *
+     * @param $value Address value
+     * @return void
+     */
+    function setAddress( $value )
+    {
+        $this->Address = $value;
+    }
+
+    /**
+     * Store the Latitude value
      * @var numeric
      */
     private $Latitude;
 
     /**
-     * Strore the Longitude value
+     * Store the Longitude value
      * @var numeric
      */
     private $Longitude;
+
+    /**
+     * Store the Address value
+     * @var string
+     */
+    private $Address;
 }
 
 ?>
