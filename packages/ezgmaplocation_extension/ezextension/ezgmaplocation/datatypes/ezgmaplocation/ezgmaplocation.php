@@ -23,31 +23,38 @@
 //
 //
 
-/*! \file ezgmaplocation.php
-*/
+/**
+ * File containing the eZGmapLocation class.
+ *
+ * @package eZDatatype
+ */
 
-/*!
-  \class eZGmapLocation ezgmaplocation.php
-  \ingroup eZDatatype
-  \brief The class eZGmapLocation provides a datatype for storing
-  \latitude & longitude values.
-
-*/
-
+/**
+ * Helper class used along with the eZGmapLocationType datatype.
+ * Provides a datatype for storing latitude & longitude values.
+ *
+ * @package eZDatatype
+ * @see eZGmapLocationType
+ */
 class eZGmapLocation
 {
-    /*!
-     Constructor
-    */
+    /**
+     * Constructor.
+     *
+     * @param $latitude
+     * @param $longitude
+     */
     function __construct( $latitude, $longitude )
     {
         $this->Latitude = $latitude;
         $this->Longitude = $longitude;
     }
 
-    /*!
-     \return list of supported attributes
-    */
+    /**
+     * Returns the list of supported attributes
+     *
+     * @return array
+     */
     function attributes()
     {
         static $atr = array( 'latitude',
@@ -55,17 +62,23 @@ class eZGmapLocation
         return $atr;
     }
 
-    /*!
-     \return true if attribute is set
-    */
+    /**
+     * Returns true if attribute is set.
+     *
+     * @param $name Attribute name
+     * @return boolean
+     */
     function hasAttribute( $name )
     {
         return in_array( $name, $this->attributes() );
     }
 
-    /*!
-     \return attribute by name
-    */
+    /**
+     * Reads an attribute's value.
+     *
+     * @param $name Attribute name
+     * @return mixed
+     */
     function attribute( $name )
     {
         switch ( $name )
@@ -86,9 +99,12 @@ class eZGmapLocation
         }
     }
 
-    /*!
-      decoded XML
-    */
+    /**
+     * Populates the local properties from decoding an XML string.
+     *
+     * @param $xmlString
+     * @return void
+     */
     function decodeXML( $xmlString )
     {
         $dom = new DOMDocument( '1.0', 'utf-8' );
@@ -114,9 +130,10 @@ class eZGmapLocation
         }
     }
 
-    /*!
-     \return xml string
-    */
+    /**
+     * Creates and return a well-formed XML string representing the coordinates.
+     * @return string XML string
+     */
     function xmlString()
     {
         $doc = new DOMDocument( '1.0', 'utf-8' );
@@ -129,24 +146,38 @@ class eZGmapLocation
         return $doc->saveXML();
     }
 
-    /*!
-     set Latitude value
-    */
+    /**
+     * Sets Latitude value
+     *
+     * @param $value Latitude value
+     * @return void
+     */
     function setLatitude( $value )
     {
         $this->Latitude = $value;
     }
 
-    /*!
-      set Longitude value
-    */
+    /**
+     * Sets Longitude value
+     *
+     * @param $value Longitude value
+     * @return void
+     */
     function setLongitude( $value )
     {
         $this->Longitude = $value;
     }
 
-
+    /**
+     * Strore the Latitude value
+     * @var numeric
+     */
     private $Latitude;
+
+    /**
+     * Strore the Longitude value
+     * @var numeric
+     */
     private $Longitude;
 }
 

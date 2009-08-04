@@ -23,24 +23,26 @@
 //
 //
 
+/**
+ * File containing the eZGmapLocationType class.
+ *
+ * @package eZDatatype
+ */
 
-/*! \file ezgmaplocationtype.php
-*/
-
-/*!
-  \class eZGmapLocationType ezgmaplocationtype.php
-  \ingroup eZDatatype
-  \brief The class eZGmapLocationType does
-
-*/
+/**
+ * Class providing the eZGmapLocationType datatype.
+ *
+ * @package eZDatatype
+ * @see eZGmapLocation
+ */
 
 class eZGmapLocationType extends eZDataType
 {
     const DATA_TYPE_STRING = 'ezgmaplocation';
 
-    /*!
-     Constructor
-    */
+    /**
+     * Constructor
+     */
     function __construct()
     {
         parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'extension/ezgmaplocation/datatypes', "GMaps Location", 'Datatype name' ),
@@ -148,9 +150,9 @@ class eZGmapLocationType extends eZDataType
         }
     }
 
-    /*!
-     \reimp
-    */
+    /**
+     * @see eZDataType::serializeContentObjectAttribute
+     */
     function serializeContentObjectAttribute( $package, $objectAttribute )
     {
         $dom = new DOMDocument( '1.0', 'utf-8' );
@@ -170,9 +172,9 @@ class eZGmapLocationType extends eZDataType
         return $node;
     }
 
-    /*!
-     \reimp
-    */
+    /**
+     * @see eZDataType::unserializeContentObjectAttribute
+     */
     function unserializeContentObjectAttribute( $package, $objectAttribute, $attributeNode )
     {
         $locationNode = $attributeNode->getElementsByTagName( 'ezgmaplocation' )->item( 0 );
