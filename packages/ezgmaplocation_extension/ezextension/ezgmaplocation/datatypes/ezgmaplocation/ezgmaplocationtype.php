@@ -45,7 +45,7 @@ class eZGmapLocationType extends eZDataType
      */
     function __construct()
     {
-        parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'extension/ezgmaplocation/datatypes', "GMaps Location", 'Datatype name' ),
+        parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'extension/ezgmaplocation/datatype', "GMap Location", 'Datatype name' ),
                            array( 'serialize_supported' => true ) );
     }
 
@@ -63,7 +63,7 @@ class eZGmapLocationType extends eZDataType
             {
                 if ( !$classAttribute->attribute( 'is_information_collector' ) && $contentObjectAttribute->validateIsRequired() )
                 {
-                    $contentObjectAttribute->setValidationError( ezi18n( 'extension/ezgmaplocation/datatypes',
+                    $contentObjectAttribute->setValidationError( ezi18n( 'extension/ezgmaplocation/datatype',
                                                                          'Missing Latitude/Longitude input.' ) );
                     return eZInputValidator::STATE_INVALID;
                 }

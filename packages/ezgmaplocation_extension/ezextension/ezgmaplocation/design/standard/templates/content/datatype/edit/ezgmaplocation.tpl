@@ -5,18 +5,18 @@
 <div class="element">
 
   <div class="block">
-    <label>{'Latitude'|i18n('/extension/gmaplocation/datatypes/ezgmaplocation')}:</label>
+    <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_latitude_{$attribute.id}" value="{$attribute.content.latitude}" />
   </div>
   
   <div class="block">
-    <label>{'Longitude'|i18n('/extension/gmaplocation/datatypes/ezgmaplocation')}:</label>
+    <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_longitude_{$attribute.id}" value="{$attribute.content.longitude}" />
   </div>
 
   <div class="block">
-    <label>{'Update Location'|i18n('/extension/bcgmapslocation/datatypes/bcgmapslocation')}:</label>
-    <input type="button" id="button_update_{$attribute.id}" value="{'Update values'|i18n('/extension/bcgmapslocation/datatypes/bcgmapslocation')}" onClick="javascript:void( null ); return false" />
+    <label>{'Update Location'|i18n('extension/ezgmaplocation/datatype')}:</label>
+    <input type="button" id="button_update_{$attribute.id}" value="{'Update values'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" />
   </div>
 </div>
 <div class="element">
@@ -61,8 +61,8 @@
 
         var updateLatLngFieldsWrapper = function()
         {
-		    var point = new GLatLng( map.getCenter().lat(), map.getCenter().lng() );
-		    updateLatLngFields( point );
+            var point = new GLatLng( map.getCenter().lat(), map.getCenter().lng() );
+            updateLatLngFields( point );
         };    
 
         if (GBrowserIsCompatible())
@@ -78,20 +78,20 @@
                 startPoint = new GLatLng(0,0);
             }
           
-			map = new GMap2(document.getElementById(mapid));
-			map.addControl(new GSmallMapControl());
-			map.addControl(new GMapTypeControl());
-			map.setCenter(startPoint, zoom);
-			map.addOverlay(new GMarker(startPoint));
-			geocoder = new GClientGeocoder();
-			GEvent.addListener(map, "click", function( newmarker, point )
+            map = new GMap2(document.getElementById(mapid));
+            map.addControl(new GSmallMapControl());
+            map.addControl(new GMapTypeControl());
+            map.setCenter(startPoint, zoom);
+            map.addOverlay(new GMarker(startPoint));
+            geocoder = new GClientGeocoder();
+            GEvent.addListener(map, "click", function( newmarker, point )
             {
-			    map.clearOverlays();
-			    map.addOverlay( new GMarker( point ) );
-			    map.panTo(point);
-			    // updateLatLngFields(point);
-			    document.getElementById( addressid ).value= '';
-			});
+                map.clearOverlays();
+                map.addOverlay( new GMarker( point ) );
+                map.panTo(point);
+                // updateLatLngFields(point);
+                document.getElementById( addressid ).value= '';
+            });
 
             document.getElementById( 'button_' + attributeId ).onclick = showAddress;
             document.getElementById( 'button_update_' + attributeId ).onclick = updateLatLngFieldsWrapper;

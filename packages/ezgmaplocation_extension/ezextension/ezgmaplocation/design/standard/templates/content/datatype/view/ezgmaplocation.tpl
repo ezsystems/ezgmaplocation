@@ -52,9 +52,9 @@ else if (window.attachEvent)
 
 {if and( is_set($attribute.content.latitude), is_set($attribute.content.longitude) )}
 <div class="block">
-<label>Location Latitude:</label> {$attribute.content.latitude}
-<label>Location Longitude:</label> {$attribute.content.longitude}
+<label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.latitude}
+<label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.longitude}
 </div>
 {/if}
-<label>Location Map:</label>
+<label>{'Map'|i18n('extension/ezgmaplocation/datatype')}:</label>
 <div id="map_{$attribute.id}" style="width: 240px; height: 150px"></div>
