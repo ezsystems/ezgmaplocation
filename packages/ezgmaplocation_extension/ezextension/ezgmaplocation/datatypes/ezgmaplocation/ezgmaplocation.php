@@ -41,9 +41,9 @@ class eZGmapLocation
     /**
      * Constructor.
      *
-     * @param $latitude
-     * @param $longitude
-     * @param $address
+     * @param float $latitude
+     * @param float $longitude
+     * @param string $address
      */
     function __construct( $latitude, $longitude, $address )
     {
@@ -68,7 +68,7 @@ class eZGmapLocation
     /**
      * Returns true if attribute is set.
      *
-     * @param $name Attribute name
+     * @param string $name Attribute name
      * @return boolean
      */
     function hasAttribute( $name )
@@ -79,7 +79,7 @@ class eZGmapLocation
     /**
      * Reads an attribute's value.
      *
-     * @param $name Attribute name
+     * @param string $name Attribute name
      * @return mixed
      */
     function attribute( $name )
@@ -109,7 +109,7 @@ class eZGmapLocation
     /**
      * Populates the local properties from decoding an XML string.
      *
-     * @param $xmlString
+     * @param string $xmlString
      * @return void
      */
     function decodeXML( $xmlString )
@@ -159,7 +159,7 @@ class eZGmapLocation
     /**
      * Sets Latitude value
      *
-     * @param $value Latitude value
+     * @param float $value Latitude value
      * @return void
      */
     function setLatitude( $value )
@@ -170,7 +170,7 @@ class eZGmapLocation
     /**
      * Sets Longitude value
      *
-     * @param $value Longitude value
+     * @param float $value Longitude value
      * @return void
      */
     function setLongitude( $value )
@@ -181,7 +181,7 @@ class eZGmapLocation
     /**
      * Sets Address value
      *
-     * @param $value Address value
+     * @param string $value Address value
      * @return void
      */
     function setAddress( $value )
@@ -191,13 +191,13 @@ class eZGmapLocation
 
     /**
      * Store the Latitude value
-     * @var numeric
+     * @var float
      */
     private $Latitude;
 
     /**
      * Store the Longitude value
-     * @var numeric
+     * @var float
      */
     private $Longitude;
 
