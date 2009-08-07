@@ -3,7 +3,6 @@
 <div class="block">
 
 <div class="element">
-
   <div class="block">
     <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_latitude_{$attribute.id}" value="{$attribute.content.latitude}" />
@@ -19,6 +18,7 @@
     <input type="button" id="button_update_{$attribute.id}" value="{'Update values'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" />
   </div>
 </div>
+
 <div class="element">
 {run-once}
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
@@ -112,7 +112,7 @@ else if ( window.attachEvent )
 -->
 </script>
 
-<div id="map_{$attribute.id}" style="width: 400px; height: 280px"></div>
+<div id="map_{$attribute.id}" style="width: 400px; height: 280px;"></div>
     <input type="text" id="address_{$attribute.id}" size="54" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
     <input type="button" id="button_{$attribute.id}" value="Find Address"/>
 </div>
