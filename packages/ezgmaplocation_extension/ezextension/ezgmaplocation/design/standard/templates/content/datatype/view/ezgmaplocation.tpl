@@ -11,7 +11,7 @@
             else
                 var startPoint = new GLatLng( 0, 0 ), zoom = 0;
 
-            var map = new GMap2( document.getElementById( 'map_' + attributeId ) );
+            var map = new GMap2( document.getElementById( 'ezgml-map-' + attributeId ) );
             map.addControl( new GSmallMapControl() );
             map.setCenter( startPoint, zoom );
             map.addOverlay( new GMarker(startPoint) );
@@ -42,4 +42,4 @@ else if ( window.attachEvent )
 </div>
 {/if}
 <label>{'Map'|i18n('extension/ezgmaplocation/datatype')}:</label>
-<div id="map_{$attribute.id}" style="width: 400px; height: 280px;"></div>
+<div id="ezgml-map-{$attribute.id}" style="width: 400px; height: 280px;"></div>
