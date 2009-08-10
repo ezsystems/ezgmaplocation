@@ -7,9 +7,10 @@ Version 1.0
 * button to grab current location
 * PHPDoc inline documentation added where applicable
 * Address is now stored
-* Datatype can now be used as a name pattern component
-* Datatype is now searchable
+* Datatype can now be used as a name pattern component (address)
+* Datatype is now searchable (by address)
 * Store data in external table to be able to filter on it
+* Datatype is now sortable (by address)
 
 
 Version 0.5

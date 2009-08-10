@@ -241,7 +241,7 @@ class eZGmapLocationType extends eZDataType
     function metaData( $contentObjectAttribute )
     {
         $gmapObject = $contentObjectAttribute->attribute( 'content' );
-        return $gmapObject->attribute( 'address' ) . ', ' . $gmapObject->attribute( 'latitude' ) . ', ' . $gmapObject->attribute( 'longitude' );
+        return $gmapObject->attribute( 'address' );
     }
 
     /**
@@ -252,6 +252,28 @@ class eZGmapLocationType extends eZDataType
     function isIndexable()
     {
         return true;
+    }
+
+    /**
+     * Returns sort value for attribute
+     * 
+     * @param eZContentObjectAttribute $contentObjectAttribute
+     * @return string
+     */
+    function sortKey( $contentObjectAttribute )
+    {
+        $gmapObject = $contentObjectAttribute->attribute( 'content' );
+        return $gmapObject->attribute( 'address' );
+    }
+
+    /**
+     * Tells what kind of sort value is returned, see {@link eZGmapLocationType::sortKey()}
+     * 
+     * @return string
+     */
+    function sortKeyType()
+    {
+        return 'string';
     }
 
     /**
@@ -300,7 +322,7 @@ class eZGmapLocationType extends eZDataType
     function title( $contentObjectAttribute, $name = null )
     {
         $gmapObject = $contentObjectAttribute->attribute( 'content' );
-        return $gmapObject->attribute( 'address' ) . ' [' . $gmapObject->attribute( 'latitude' ) . ', ' . $gmapObject->attribute( 'longitude' ) . ']';
+        return $gmapObject->attribute( 'address' );
     }
 
     /**
