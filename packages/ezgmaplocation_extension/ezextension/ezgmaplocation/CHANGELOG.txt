@@ -12,6 +12,7 @@ Version 1.0
 * Store data in external table to be able to filter on it
 * Datatype is now sortable (by address)
 * Added fetch function to fetch nodes by cordnates (and distance)
+* Added Extended attribute filter to fetch list / tree by cordinates and distance
 
 
 Version 0.5
