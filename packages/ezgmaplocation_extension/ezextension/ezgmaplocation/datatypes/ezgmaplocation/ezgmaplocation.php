@@ -36,176 +36,109 @@
  * @package eZDatatype
  * @see eZGmapLocationType
  */
-class eZGmapLocation
+class eZGmapLocation extends eZPersistentObject
 {
+    /*!
+     Initializes a new object.
+    */
+    function __construct( $row )
+    {
+        $this->eZPersistentObject( $row );
+    }
+
+    /*!
+     \reimp
+    */
+    public static function definition()
+    {
+        static $def = array( "fields" => array( 'contentobject_attribute_id' => array(
+                                                        'name' => 'contentobject_attribute_id',
+                                                        'datatype' => 'integer',
+                                                        'default' => 0,
+                                                        'required' => true ),
+                                         'contentobject_attribute_version' => array( 
+                                                        'name' => 'contentobject_attribute_version',
+                                                        'datatype' => 'integer',
+                                                        'default' => 0,
+                                                        'required' => true ),
+                                         'latitude' => array( 
+                                                        'name' => 'latitude',
+                                                        'datatype' => 'float',
+                                                        'default' => 0,
+                                                        'required' => true ),
+                                         'longitude' => array( 'name' => "longitude",
+                                                        'datatype' => 'float',
+                                                        'default' => 0,
+                                                        'required' => true ),
+                                         'address' => array( 'name' => 'street',
+                                                        'datatype' => 'string',
+                                                        'default' => '',
+                                                        'required' => false )
+                                                ),
+                      'keys' => array( 'contentobject_attribute_id', 'contentobject_attribute_version' ),
+                      'function_attributes' => array(  ),
+                      'class_name' => 'eZGmapLocation',
+                      'name' => 'ezgmaplocation' );
+        return $def;
+    }
+
     /**
-     * Constructor.
+     * Fetch map location by attribute id and version
      *
-     * @param float $latitude
-     * @param float $longitude
-     * @param string $address
+     * @param int $attributeId
+     * @param int $version
+     * @param bool $asObject
+     * @return eZGmapLocation|null
      */
-    function __construct( $latitude, $longitude, $address )
+    public static function fetch( $attributeId, $version, $asObject = true )
     {
-        $this->Latitude = $latitude;
-        $this->Longitude = $longitude;
-        $this->Address = $address;
+        $list = eZPersistentObject::fetchObjectList( 
+                                        self::definition(),
+                                        null,
+                                        array( 'contentobject_attribute_id' => $attributeId, 'contentobject_attribute_version' => $version  ), 
+                                        null,
+                                        null,
+                                        $asObject
+                );
+        if ( isset( $list[0] ) )
+            return $list[0];
+        return null;
     }
 
     /**
-     * Returns the list of supported attributes
-     *
-     * @return array
+     * Create a eZGmapLocation (but do not store it, thats up to you!)
+     * Make sure you don't create if one with same id / version exists
+     * Use fetch instead if that is the case.
+     * 
+     * @param int $attributeId
+     * @param int $version
+     * @return eZGmapLocation
      */
-    function attributes()
+    static function create( $attributeId, $version, $latitude = 0.0, $longitude = 0.0, $address = ''  )
     {
-        static $atr = array( 'latitude',
-                             'longitude',
-                             'address' );
-        return $atr;
+        $object = new self( array( 'contentobject_attribute_id' => $attributeId,
+                                   'contentobject_attribute_version' => $version,
+                                   'latitude' => $latitude,
+                                   'longitude' => $longitude,
+                                   'address' => $address
+        ) );
+        return $object;
     }
 
     /**
-     * Returns true if attribute is set.
-     *
-     * @param string $name Attribute name
-     * @return boolean
+     * Remove a eZGmapLocation object form database.
+     * 
+     * @param int $attributeId
+     * @param int|null $version (Optional, deletes all versions if null or ommited)
      */
-    function hasAttribute( $name )
+    static function removeById( $attributeId, $version = null )
     {
-        return in_array( $name, $this->attributes() );
+        if ( $version !== null )
+    	   $conds = array( 'contentobject_attribute_id' => $attributeId, 'contentobject_attribute_version' => $version  );
+    	else
+    	    $conds = array( 'contentobject_attribute_id' => $attributeId );
+
+        eZPersistentObject::removeObject( self::definition(), $conds, null );
     }
-
-    /**
-     * Reads an attribute's value.
-     *
-     * @param string $name Attribute name
-     * @return mixed
-     */
-    function attribute( $name )
-    {
-        switch ( $name )
-        {
-            case 'latitude' :
-            {
-                return $this->Latitude;
-            }break;
-            case 'longitude' :
-            {
-                return $this->Longitude;
-            }break;
-            case 'address' :
-            {
-                return $this->Address;
-            }break;
-            default:
-            {
-                eZDebug::writeError( "Attribute '$name' does not exist", __METHOD__ );
-                return null;
-            }break;
-        }
-    }
-
-    /**
-     * Populates the local properties from decoding an XML string.
-     *
-     * @param string $xmlString
-     * @return void
-     */
-    function decodeXML( $xmlString )
-    {
-        $dom = new DOMDocument( '1.0', 'utf-8' );
-
-        if ( $xmlString != "" )
-        {
-            $success = $dom->loadXML( $xmlString );
-            if ( !$success )
-            {
-                eZDebug::writeError( 'Failed loading XML', __METHOD__ );
-                return false;
-            }
-
-            $locationElement = $dom->documentElement;
-
-            $this->Latitude = $locationElement->getAttribute( 'latitude' );
-            $this->Longitude = $locationElement->getAttribute( 'longitude' );
-            $this->Address = $locationElement->getAttribute( 'address' );
-        }
-        else
-        {
-            $this->Latitude = 0;
-            $this->Longitude = 0;
-            $this->Address = '';
-        }
-    }
-
-    /**
-     * Creates and return a well-formed XML string representing the coordinates.
-     * @return string XML string
-     */
-    function xmlString()
-    {
-        $doc = new DOMDocument( '1.0', 'utf-8' );
-
-        $root = $doc->createElement( 'ezgmaplocation' );
-        $root->setAttribute( 'latitude', $this->Latitude );
-        $root->setAttribute( 'longitude', $this->Longitude );
-        $root->setAttribute( 'address', $this->Address );
-        $doc->appendChild( $root );
-
-        return $doc->saveXML();
-    }
-
-    /**
-     * Sets Latitude value
-     *
-     * @param float $value Latitude value
-     * @return void
-     */
-    function setLatitude( $value )
-    {
-        $this->Latitude = $value;
-    }
-
-    /**
-     * Sets Longitude value
-     *
-     * @param float $value Longitude value
-     * @return void
-     */
-    function setLongitude( $value )
-    {
-        $this->Longitude = $value;
-    }
-
-    /**
-     * Sets Address value
-     *
-     * @param string $value Address value
-     * @return void
-     */
-    function setAddress( $value )
-    {
-        $this->Address = $value;
-    }
-
-    /**
-     * Store the Latitude value
-     * @var float
-     */
-    private $Latitude;
-
-    /**
-     * Store the Longitude value
-     * @var float
-     */
-    private $Longitude;
-
-    /**
-     * Store the Address value
-     * @var string
-     */
-    private $Address;
 }
-
 ?>

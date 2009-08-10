@@ -1,6 +1,6 @@
 CHANGELOG
 
-Version 0.6
+Version 1.0
 -------------------------------------------------------------------------------
 * code cleanup
 * bigger map in edit view
@@ -9,6 +9,7 @@ Version 0.6
 * Address is now stored
 * Datatype can now be used as a name pattern component
 * Datatype is now searchable
+* Store data in external table to be able to filter on it
 
 
 Version 0.5

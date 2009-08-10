@@ -25,28 +25,30 @@
 {run-once}
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
 <script type="text/javascript">
-    function eZGmapLocation_MapControl( attributeId )
-    {ldelim} 
-        var mapid = 'ezgml-map-' + attributeId, addressid = 'ezgml-address-' + attributeId;
-        var latid = 'ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude';
-        var longid = 'ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude';
-        {literal}
-        
-        var map = null, geocoder = null, gmapExistingOnload = null, marker = null, me = this;
+{literal}
+    function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
+    { 
+        var mapid = 'ezgml-map-' + attributeId, latid  = 'ezcoa-' + latLongAttributeBase + '_latitude', longid = 'ezcoa-' + latLongAttributeBase + '_longitude';
+        var geocoder = null, addressid = 'ezgml-address-' + attributeId;
     
         var showAddress = function()
         {
-          var addrObj = document.getElementById(addressid);
+          var addrObj = document.getElementById( addressid );
           var address = addrObj.value;
-          if (geocoder) {
+          if ( geocoder )
+          {
             geocoder.getLatLng(
               address,
-              function(point) {
-                if (!point) {
+              function( point )
+              {
+                if (!point)
+                {
                   alert(address + " not found");
-                } else {
+                }
+                else
+                {
                   map.setCenter(point, 13);
-                  marker = new GMarker(point);
+                  var marker = new GMarker(point);
                   map.addOverlay(marker);
                   // updateLatLngFields(point);
                 }
@@ -70,9 +72,9 @@
         if (GBrowserIsCompatible())
         {
             var startPoint = null, zoom = 0;
-            if (document.getElementById(latid).value)
+            if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
             {
-                startPoint = new GLatLng( document.getElementById(latid).value, document.getElementById(longid).value );
+                startPoint = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
                 zoom = 13;
             }
             else
@@ -80,17 +82,17 @@
                 startPoint = new GLatLng(0,0);
             }
           
-            map = new GMap2(document.getElementById(mapid));
-            map.addControl(new GSmallMapControl());
-            map.addControl(new GMapTypeControl());
-            map.setCenter(startPoint, zoom);
-            map.addOverlay(new GMarker(startPoint));
+            var map = new GMap2( document.getElementById( mapid ) );
+            map.addControl( new GSmallMapControl() );
+            map.addControl( new GMapTypeControl() );
+            map.setCenter( startPoint, zoom );
+            map.addOverlay( new GMarker( startPoint ) );
             geocoder = new GClientGeocoder();
-            GEvent.addListener(map, "click", function( newmarker, point )
+            GEvent.addListener( map, "click", function( newmarker, point )
             {
                 map.clearOverlays();
                 map.addOverlay( new GMarker( point ) );
-                map.panTo(point);
+                map.panTo( point );
                 // updateLatLngFields(point);
                 document.getElementById( addressid ).value= '';
             });
@@ -107,9 +109,9 @@
 <!--
 
 if ( window.addEventListener )
-    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id} ) {rdelim}, false);
+    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim}, false);
 else if ( window.attachEvent )
-    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id} ) {rdelim} );
+    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim} );
 
 -->
 </script>

@@ -21,6 +21,7 @@
 </script>
 {/run-once}
 
+{if $attribute.has_content}
 <script type="text/javascript">
 <!--
 
@@ -32,14 +33,14 @@ else if ( window.attachEvent )
 -->
 </script>
 
-{if and( is_set($attribute.content.latitude), is_set($attribute.content.longitude) )}
 <div class="block">
 <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.latitude}
 <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.longitude}
-    {if and( is_set($attribute.content.address), $attribute.content.address )}
+  {if $attribute.content.address}
     <label>{'Address'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.address}
-    {/if}
+  {/if}
 </div>
-{/if}
+
 <label>{'Map'|i18n('extension/ezgmaplocation/datatype')}:</label>
 <div id="ezgml-map-{$attribute.id}" style="width: 400px; height: 280px;"></div>
+{/if}
