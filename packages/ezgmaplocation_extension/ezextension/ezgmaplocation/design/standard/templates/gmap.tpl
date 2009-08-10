@@ -145,7 +145,7 @@ small map centered on that point. Don't display any markers.
 {/if}
 
 	
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
 <script type="text/javascript">
     var mapid = '{$map_id}';    
     var map = null;

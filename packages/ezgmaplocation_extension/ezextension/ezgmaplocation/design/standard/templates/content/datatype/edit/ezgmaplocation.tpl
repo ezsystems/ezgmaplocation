@@ -23,7 +23,7 @@
 
 <div class="element">
 {run-once}
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
 <script type="text/javascript">
 {literal}
     function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
