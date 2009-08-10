@@ -140,5 +140,104 @@ class eZGmapLocation extends eZPersistentObject
 
         eZPersistentObject::removeObject( self::definition(), $conds, null );
     }
+
+    /**
+     * Fetch main nodes by radius distance (as specified by currently published ezgmaps data)
+     * NOTE: Private/Internal api, as in: might change in later versions!
+     * 
+     * @param float $latitude
+     * @param float $longitude
+     * @param float $distance Radius distance, {@see http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Geographical_coordinates} under "Precision"
+     * @param int|null $limit
+     * @param int $offset
+     * @param bool $asObject
+     * @return array
+     */
+    public static function fetchMainNodesByDistance( $latitude, $longitude, $distance = 0.5, $limit = null, $offset = 0, $asObject = true )
+    {
+        $minLatitude = $latitude - $distance;
+        $maxLatitude = $latitude + $distance;
+        $minLongitude = $longitude - $distance;
+        $maxLongitude = $longitude + $distance;
+        
+        if ( $limit !== null )
+        {
+            $limit = array( 'offset' => $offset, 'limit' => $limit );
+        }
+        
+        $limitation = false;
+        $limitationList = eZContentObjectTreeNode::getLimitationList( $limitation );
+        $sqlPermissionChecking = eZContentObjectTreeNode::createPermissionCheckingSQL( $limitationList );
+
+        $languageFilter = ' AND ' . eZContentLanguage::languagesSQLFilter( 'ezcontentobject' );
+        
+        $useVersionName     = true;
+        $versionNameTables  = eZContentObjectTreeNode::createVersionNameTablesSQLString ( $useVersionName );
+        $versionNameTargets = eZContentObjectTreeNode::createVersionNameTargetsSQLString( $useVersionName );
+        $versionNameJoins   = eZContentObjectTreeNode::createVersionNameJoinsSQLString( $useVersionName );
+
+        $showInvisibleNodesCond = eZContentObjectTreeNode::createShowInvisibleSQLString( true );
+        
+        $db = eZDB::instance();
+        $sql = "SELECT
+                         ezcontentobject.*,
+                         ezcontentobject_tree.*,
+                         ezcontentclass.serialized_name_list as class_serialized_name_list,
+                         ezcontentclass.identifier as class_identifier,
+                         ezcontentclass.is_container as is_container
+                         $versionNameTargets
+                    FROM
+                         ezgmaplocation,
+                         ezcontentobject_attribute,
+                         ezcontentobject,
+                         ezcontentobject_tree,
+                         ezcontentclass
+                         $versionNameTables
+                         $sqlPermissionChecking[from]
+                    WHERE
+                         ezgmaplocation.latitude > $minLatitude AND ezgmaplocation.latitude < $maxLatitude AND
+                         ezgmaplocation.longitude > $minLongitude AND ezgmaplocation.longitude < $maxLongitude AND
+                         ezcontentobject_attribute.id = ezgmaplocation.contentobject_attribute_id AND
+                         ezcontentobject_attribute.version = ezgmaplocation.contentobject_attribute_version AND
+                         ezcontentobject.id = ezcontentobject_attribute.contentobject_id AND
+                         ezcontentobject.current_version = ezcontentobject_attribute.version AND
+                         ezcontentobject_tree.contentobject_id = ezcontentobject.id AND
+                         ezcontentobject_tree.node_id = ezcontentobject_tree.main_node_id AND
+                         ezcontentclass.id = ezcontentobject.contentclass_id AND
+                         ezcontentclass.version=0
+                         $versionNameJoins
+                         $showInvisibleNodesCond
+                         $sqlPermissionChecking[where]
+                         $languageFilter
+                    ORDER BY ezcontentobject.published ASC;";
+
+        $server = isset( $sqlPermissionChecking['temp_tables'][0] ) ? eZDBInterface::SERVER_SLAVE : false;
+
+        $ret = $db->arrayQuery( $sql, $limit, $server );
+
+        $db->dropTempTableList( $sqlPermissionChecking['temp_tables'] );
+
+        unset($db);
+
+        if ( isset( $ret[0] ) && is_array( $ret ) )
+        {
+            if ( $asObject )
+            {
+                $ret = eZContentObjectTreeNode::makeObjectsArray( $ret );
+            }
+            
+        }
+        else if ( $ret === false )
+        {
+            eZDebug::writeError( 'The ezgmaplocation table seems to be missing,
+                          contact your administrator', __METHOD__ );
+            $ret = array();
+        }
+        else
+        {
+            $ret = array();
+        }
+        return $ret;
+    }
 }
 ?>

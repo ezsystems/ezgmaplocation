@@ -3,7 +3,7 @@ CHANGELOG
 Version 1.0
 -------------------------------------------------------------------------------
 * code cleanup
-* bigger map in edit view
+* bigger map in edit view and normal view
 * button to grab current location
 * PHPDoc inline documentation added where applicable
 * Address is now stored
@@ -11,6 +11,7 @@ Version 1.0
 * Datatype is now searchable (by address)
 * Store data in external table to be able to filter on it
 * Datatype is now sortable (by address)
+* Added fetch function to fetch nodes by cordnates (and distance)
 
 
 Version 0.5
