@@ -17,7 +17,7 @@
 
   <div class="block">
     <label>{'Update Location'|i18n('extension/ezgmaplocation/datatype')}:</label>
-    <input type="button" id="ezgml-update-button-{$attribute.id}" value="{'Update values'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" />
+    <input class="defaultbutton" type="button" id="ezgml-update-button-{$attribute.id}" value="{'Update values'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" />
   </div>
 </div>
 
@@ -118,9 +118,8 @@ else if ( window.attachEvent )
 
 <div id="ezgml-map-{$attribute.id}" style="width: 400px; height: 280px;"></div>
     <input type="text" id="ezgml-address-{$attribute.id}" size="54" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
-    <input type="button" id="ezgml-address-button-{$attribute.id}" value="Find Address"/>
+    <input class="defaultbutton" type="button" id="ezgml-address-button-{$attribute.id}" value="{'Find address'|i18n('extension/ezgmaplocation/datatype')}"/>
 </div>
-
 
 <div class="break"></div>
 </div>
