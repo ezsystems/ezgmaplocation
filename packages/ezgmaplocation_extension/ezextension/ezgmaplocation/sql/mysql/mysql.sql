@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `ezgmaplocation` (
   `address` varchar(150) default NULL,
   PRIMARY KEY ( `contentobject_attribute_id`, `contentobject_attribute_version` ),
   KEY `latitude_longitude_key` ( `latitude`,`longitude` )
-);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
