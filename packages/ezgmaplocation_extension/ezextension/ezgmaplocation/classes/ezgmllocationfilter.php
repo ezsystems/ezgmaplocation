@@ -61,7 +61,7 @@ class ezgmlLocationFilter
                                       ) )}
          *
          * NOTE on distance accuracy:
-         * This filter uses a bounding box to make sure the sql is fast, this means distance is actually a square and not circle.
+         * This filter uses a bounding box to make sure the sql is fast, this means distance is actually a square and not circle by default.
          * If you want more accuracy in the filter, use 'distance_as_circle' setting:
          *    false()       : Default, fatest, no additional calculation other then the bounding box (square) distance
          *    'pythagorean' : Use somewhat fast pythagorean calculation, accurate for small distances ( < 60km  )
