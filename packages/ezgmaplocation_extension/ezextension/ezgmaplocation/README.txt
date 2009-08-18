@@ -4,8 +4,8 @@ Developed by Blend Interactive
 http://blendinteractive.com
 ----------------------
 The GmapsLocation datatype extension provides a handy way to store
-latitude/longitude points on an object by using Google Maps to identify
-and mark positions using their address.
+latitude/longitude points (as decimal degrees) on an object by using
+Google Maps to identify and mark positions using their address.
 
 Installation
 ---------------
