@@ -51,13 +51,13 @@ class ezgmlLocationFilter
          * 
          * Full example for fetching nodes that are within a certain area:
          * 
-         * {def $users_close_by = fetch( 'content', 'tree', hash(
+         * {def $users_in_oslo = fetch( 'content', 'tree', hash(
                                       'parent_node_id', 1503,
                                       'limit', 3,
                                       'sort_by', array( 'distance', true() ),
                                       'class_filter_type', 'include',
                                       'class_filter_array', array( 'user' ),
-                                      'extended_attribute_filter', hash( 'id', 'ezgmlLocationFilter', 'params', hash( 'latitude', 59.917, 'longitude', 10.729 ) )
+                                      'extended_attribute_filter', hash( 'id', 'ezgmlLocationFilter', 'params', hash( 'latitude', 59.917, 'longitude', 10.729, 'distance', 0.35 ) )
                                       ) )}
          *
          * NOTE on distance accuracy:

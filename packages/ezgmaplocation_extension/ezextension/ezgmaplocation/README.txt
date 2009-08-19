@@ -1,8 +1,10 @@
-gmapsLocation Datatype Extension
-Version 0.5
-Developed by Blend Interactive
+eZGmapsLocation Datatype Extension
+Version 1.x
+by eZ Systems AS
+
+Version 0.5 developed by Blend Interactive
 http://blendinteractive.com
-----------------------
+------------------------------------------------------------------
 The GmapsLocation datatype extension provides a handy way to store
 latitude/longitude points (as decimal degrees) on an object by using
 Google Maps to identify and mark positions using their address.
@@ -21,67 +23,44 @@ eZ Publish installation.
 
 4.) Add your GmapsKey to the site.ini under [SiteSettings] like so:
 GMapsKey=<Long string of characters from Google>
+(You can do this pr siteaccess if you want)
 
-Use
+5) Apply the ezgmaplocation table to your database with the included sql file:
+<eZP root>/extension/ezgmaplocation/sql/mysql/mysql.sql
+Using either phpmyadmin (easiest) or shell/console commands.
+TODO: test on pgsql and create one for it as well (try the above one in the mean time)
+
+6) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
+
+
+Use (fetching)
 ---------------
-To use the extension, add the 'GMaps Location' datatype to your classes using
-the class editor.
 
-The most common use of the extension is to also Google Maps data on a public-
-facing web site. The included gmap.tpl template will provide a basic gmap
-with mapped points. See the instructions in design/standard/templates/gmap.tpl
-for the full documentation of parameters.
-
-A few examples:
-
-List all office objects under node 57 and display their 'location'
-attributes on a 600x400 map. Also list the offices on the page:
-
-{def $offices = fetch('content','list', hash(
-                'parent_node_id', 57,
-                'class_filter_type', 'include',
-                'class_filter_array', array('office')))}
-
-{include uri='design:gmaps.tpl'
-    locations=$offices
-    size=array(600,400)
-    show_popups_on_page=true()
-}
+For fetching multiple nodes based on location, you can use the included ezgmlLocationFilter.
+Example fetches users in a distance of roughly 30-50km from Oslo, Norway. And sorts the
+results based on how close the nodes are to the given cordinate.
 
 
-Recursively get all image objects under node 243 and display their
-'gps_point' attributes on a 400x400 map. Center the map on Yellowstone
-National Park at a reasonable zoom level, and use the object's 'galleryline'
-view for the map popups:
+{def $users_close_by = fetch( 'content', 'tree', hash(
+                              'parent_node_id', 12,
+                              'limit', 3,
+                              'sort_by', array( 'distance', true() ),
+                              'class_filter_type', 'include',
+                              'class_filter_array', array( 'user' ),
+                              'extended_attribute_filter', hash( 'id', 'ezgmlLocationFilter', 'params', hash( 'latitude', 59.917,
+                                                                                                              'longitude', 10.729,
+                                                                                                              'distance', 0.5 ) )
+                              ) )}
 
-{def $pictures = fetch('content','tree', hash(
-                'parent_node_id', 243,
-                'class_filter_type', 'include',
-                'class_filter_array', array('image')))}
-
-{include uri='design:gmaps.tpl'
-    locations=$pictures
-    location_attribute='gps_point'
-    center=array(44.62566, -110.5389)
-    zoom=8
-    popup_view='galleryline'
-}
-
-
-Pull the 'location' attribute from the object at node 415, and display a
-small map centered on that point. Don't display any markers.
-{def $center = fetch('content','node', hash(
-                'node_id', 415))}
-
-
-{include uri='design:gmaps.tpl'
-    center=$center.object.data_map.location.content
-    zoom=8
-    size=array(150,150)
-}
-
-
-
-See the samples folder for samples of customized maps.
-
+ Note that the distance filter is using a 'bounding box' for sql speed, see classes/ezgmllocationfilter.php for more info 
+ and paramerters to be able to get true ('arccosine') or closer to true ('pythagorean') circular distance filter accuracy.
+ The sort on the other hand is accurate, so if your main concerne is to show closets node, then the filter is ok by default.
+ 
+ Also see 'arccosine' parameter in combination with 'as_object', false() to be able to get value to easily calculate distance.
+ Example use: user x is 2,5 km away from you. Or Oslo, Norway is 416.8km from Stockholm, Sweden.
+ 
+ 
+TODO:
+------------
+For better accuracy, consider sitching to DOUBLE as datatype for longitude and latitude (FLOAT has ~30m error margin).
 
