@@ -1,6 +1,5 @@
 eZGmapsLocation Datatype Extension
-Version 1.x
-by eZ Systems AS
+Version 1.x by eZ Systems AS
 
 Version 0.5 developed by Blend Interactive
 http://blendinteractive.com
