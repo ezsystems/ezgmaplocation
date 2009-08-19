@@ -34,6 +34,17 @@ TODO: test on pgsql and create one for it as well (try the above one in the mean
 6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
 
 
+Use (editing)
+---------------
+1. Type in the address you want to find beneath the map.
+2. Click 'Find address'
+3. Click 'Update Values' to grab the cordniates.
+
+Repeat to change.
+Unless you change the marker on the map, the address will be saved as you typed it.
+This address is searcable! (see bellow for filtering / sorting on cordinates as well)
+
+
 Use (fetching)
 ---------------
 
