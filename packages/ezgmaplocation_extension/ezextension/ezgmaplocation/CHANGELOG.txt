@@ -4,13 +4,13 @@ Version 1.0
 -------------------------------------------------------------------------------
 * code cleanup
 * bigger map in edit view and normal view
-* button to grab current location
+* button to grab current location (from bcgmapslocation)
 * PHPDoc inline documentation added where applicable
 * Address is now stored
 * Datatype can now be used as a name pattern component (address)
 * Datatype is now searchable (by address)
-* Store data in external table to be able to filter on it
 * Datatype is now sortable (by address)
+* Store data in external table to be able to filter on it
 * Added Extended attribute filter to fetch list / tree by cordinates and distance
 * Added support for sorting by distance when using Extended attribute filter
 * Added support for arccosine and pythagorean distance algorithm in distance
