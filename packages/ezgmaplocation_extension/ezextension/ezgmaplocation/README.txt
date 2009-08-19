@@ -15,22 +15,23 @@ Installation
 1.) Obtain a Google Maps Key for all domains you'll be using by registering
 your domains with Google at http://www.google.com/apis/maps/
 
-2.) Upload the gmapslocation folder to the extensions folder in your
+2.) Upload the ezgmapslocation folder to the extensions folder in your
 eZ Publish installation.
 
 3.) Activate the extension from the 'Extensions' portion of the
 'Setup' tab in the eZ publish admin interface.
+And update the autoload array by clicking "Regenerate autoload arrays for extensions"
 
 4.) Add your GmapsKey to the site.ini under [SiteSettings] like so:
 GMapsKey=<Long string of characters from Google>
 (You can do this pr siteaccess if you want)
 
-5) Apply the ezgmaplocation table to your database with the included sql file:
+5.) Apply the ezgmaplocation table to your database with the included sql file:
 <eZP root>/extension/ezgmaplocation/sql/mysql/mysql.sql
 Using either phpmyadmin (easiest) or shell/console commands.
 TODO: test on pgsql and create one for it as well (try the above one in the mean time)
 
-6) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
+6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
 
 
 Use (fetching)
