@@ -29,7 +29,7 @@ class eZGmapLocationInfo
     {
         return array(
             'Name' => "eZ Google Maps Location",
-            'Version' => "1.0",
+            'Version' => "1.0beta1",
             'Copyright' => "Copyright (C) 2008 Joe Kepley, 2009 eZ Systems AS",
             'License' => "GNU General Public License v2.0",
         );
