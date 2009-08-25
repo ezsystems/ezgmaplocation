@@ -68,7 +68,7 @@ class ezgmlLocationFilter
          *    'arccosine'   : Use full arccosine calculation, in this case provide 'arccosine_distance' as well
          *
          * NOTE on arccosine_distance:
-         * A float number, if you have distance in km divide by 6371, if miles divide by 3959
+         * A double number, if you have distance in km divide by 6371, if miles divide by 3959
          * For use in addition to 'distance' when 'distance_as_circle' is set to 'arccosine'
          *
          * NOTE on sorting:

@@ -63,11 +63,11 @@ class eZGmapLocation extends eZPersistentObject
                                                         'required' => true ),
                                          'latitude' => array( 
                                                         'name' => 'latitude',
-                                                        'datatype' => 'float',
+                                                        'datatype' => 'double',
                                                         'default' => 0,
                                                         'required' => true ),
                                          'longitude' => array( 'name' => "longitude",
-                                                        'datatype' => 'float',
+                                                        'datatype' => 'double',
                                                         'default' => 0,
                                                         'required' => true ),
                                          'address' => array( 'name' => 'street',
