@@ -129,7 +129,7 @@ class eZGmapLocationType extends eZDataType
             {
 		        $location = new eZGmapLocation( array( 
 		                        'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
-		                        'contentobject_attribute_version' => $contentObjectAttribute->attribute('version'),
+		                        'contentobject_version' => $contentObjectAttribute->attribute('version'),
 		                        'latitude' => $latitude,
 		                        'longitude' => $longitude,
 		                        'address' => $address
@@ -187,7 +187,7 @@ class eZGmapLocationType extends eZDataType
             {
                 $gmapObject = $originalContentObjectAttribute->attribute( 'content' );
                 $gmapObject->setAttribute( 'contentobject_attribute_id', $contentObjectAttribute->attribute( 'id' ) );//in case of copy
-                $gmapObject->setAttribute( 'contentobject_attribute_version', $contentObjectAttribute->attribute( 'version' ) );
+                $gmapObject->setAttribute( 'contentobject_version', $contentObjectAttribute->attribute( 'version' ) );
                 $contentObjectAttribute->setContent( $gmapObject );
                 $contentObjectAttribute->store();
             }
@@ -302,7 +302,7 @@ class eZGmapLocationType extends eZDataType
     	{
             $location = new eZGmapLocation( array( 
                             'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
-                            'contentobject_attribute_version' => $contentObjectAttribute->attribute('version'),
+                            'contentobject_version' => $contentObjectAttribute->attribute('version'),
                             'latitude' => $data[1],
                             'longitude' => $data[2],
                             'address' => $data[3]
@@ -376,7 +376,7 @@ class eZGmapLocationType extends eZDataType
         {
             $location = new eZGmapLocation( array( 
                             'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
-                            'contentobject_attribute_version' => $contentObjectAttribute->attribute('version'),
+                            'contentobject_version' => $contentObjectAttribute->attribute('version'),
                             'latitude' => $attributeNode->getElementsByTagName( 'latitude' )->item( 0 )->textContent,
                             'longitude' => $attributeNode->getElementsByTagName( 'longitude' )->item( 0 )->textContent,
                             'address' => $attributeNode->getElementsByTagName( 'address' )->item( 0 )->textContent

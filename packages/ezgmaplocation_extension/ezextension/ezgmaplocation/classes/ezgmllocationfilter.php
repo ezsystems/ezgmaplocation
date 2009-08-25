@@ -137,7 +137,7 @@ class ezgmlLocationFilter
 
         $sqlWhere .= "
                      ezcontentobject_attribute.id = ezgmaplocation.contentobject_attribute_id AND
-                     ezcontentobject_attribute.version = ezgmaplocation.contentobject_attribute_version AND
+                     ezcontentobject_attribute.version = ezgmaplocation.contentobject_version AND
                      ezcontentobject.id = ezcontentobject_attribute.contentobject_id AND
                      ezcontentobject.current_version = ezcontentobject_attribute.version AND";
 

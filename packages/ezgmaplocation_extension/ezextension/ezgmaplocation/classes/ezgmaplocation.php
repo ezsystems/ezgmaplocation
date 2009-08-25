@@ -56,8 +56,8 @@ class eZGmapLocation extends eZPersistentObject
                                                         'datatype' => 'integer',
                                                         'default' => 0,
                                                         'required' => true ),
-                                         'contentobject_attribute_version' => array( 
-                                                        'name' => 'contentobject_attribute_version',
+                                         'contentobject_version' => array( 
+                                                        'name' => 'contentobject_version',
                                                         'datatype' => 'integer',
                                                         'default' => 0,
                                                         'required' => true ),
@@ -75,7 +75,7 @@ class eZGmapLocation extends eZPersistentObject
                                                         'default' => '',
                                                         'required' => false )
                                                 ),
-                      'keys' => array( 'contentobject_attribute_id', 'contentobject_attribute_version' ),
+                      'keys' => array( 'contentobject_attribute_id', 'contentobject_version' ),
                       'function_attributes' => array(  ),
                       'class_name' => 'eZGmapLocation',
                       'name' => 'ezgmaplocation' );
@@ -95,7 +95,7 @@ class eZGmapLocation extends eZPersistentObject
         $list = eZPersistentObject::fetchObjectList( 
                                         self::definition(),
                                         null,
-                                        array( 'contentobject_attribute_id' => $attributeId, 'contentobject_attribute_version' => $version  ), 
+                                        array( 'contentobject_attribute_id' => $attributeId, 'contentobject_version' => $version  ), 
                                         null,
                                         null,
                                         $asObject
@@ -117,7 +117,7 @@ class eZGmapLocation extends eZPersistentObject
     static function create( $attributeId, $version, $latitude = 0.0, $longitude = 0.0, $address = ''  )
     {
         $object = new self( array( 'contentobject_attribute_id' => $attributeId,
-                                   'contentobject_attribute_version' => $version,
+                                   'contentobject_version' => $version,
                                    'latitude' => $latitude,
                                    'longitude' => $longitude,
                                    'address' => $address
@@ -134,7 +134,7 @@ class eZGmapLocation extends eZPersistentObject
     static function removeById( $attributeId, $version = null )
     {
         if ( $version !== null )
-    	   $conds = array( 'contentobject_attribute_id' => $attributeId, 'contentobject_attribute_version' => $version  );
+    	   $conds = array( 'contentobject_attribute_id' => $attributeId, 'contentobject_version' => $version  );
     	else
     	    $conds = array( 'contentobject_attribute_id' => $attributeId );
 
