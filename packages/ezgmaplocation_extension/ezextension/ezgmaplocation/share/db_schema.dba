@@ -1,0 +1,70 @@
+<?php
+// This array contains the database schema
+$schema = array (
+  'ezgmaplocation' => 
+  array (
+    'name' => 'ezgmaplocation',
+    'fields' => 
+    array (
+      'address' => 
+      array (
+        'type' => 'auto_increment',
+        'default' => false,
+      ),
+      'contentobject_attribute_id' => 
+      array (
+        'type' => 'auto_increment',
+        'default' => false,
+      ),
+      'contentobject_version' => 
+      array (
+        'type' => 'auto_increment',
+        'default' => false,
+      ),
+      'latitude' => 
+      array (
+        'type' => 'auto_increment',
+        'default' => false,
+      ),
+      'longitude' => 
+      array (
+        'type' => 'auto_increment',
+        'default' => false,
+      ),
+    ),
+    'indexes' => 
+    array (
+      'PRIMARY' => 
+      array (
+        'type' => 'primary',
+        'fields' => 
+        array (
+          0 => 'contentobject_attribute_id',
+          1 => 'contentobject_version',
+        ),
+      ),
+      'latitude_longitude_key' => 
+      array (
+        'type' => 'non-unique',
+        'fields' => 
+        array (
+          0 => 'latitude',
+          1 => 'longitude',
+        ),
+      ),
+    ),
+  ),
+  '_info' => 
+  array (
+    'format' => 'generic',
+  ),
+);
+// This array contains the database data
+$data = array (
+  '_info' => 
+  array (
+    'format' => 'generic',
+  ),
+);
+
+?>
