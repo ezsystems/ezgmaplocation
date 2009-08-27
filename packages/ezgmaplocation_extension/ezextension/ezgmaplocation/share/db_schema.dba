@@ -8,28 +8,35 @@ $schema = array (
     array (
       'address' => 
       array (
-        'type' => 'auto_increment',
-        'default' => false,
+        'length' => 150,
+        'type' => 'varchar',
+        'default' => NULL,
       ),
       'contentobject_attribute_id' => 
       array (
-        'type' => 'auto_increment',
-        'default' => false,
+        'length' => 11,
+        'type' => 'int',
+        'not_null' => '1',
+        'default' => 0,
       ),
       'contentobject_version' => 
       array (
-        'type' => 'auto_increment',
-        'default' => false,
+        'length' => 11,
+        'type' => 'int',
+        'not_null' => '1',
+        'default' => 0,
       ),
       'latitude' => 
       array (
-        'type' => 'auto_increment',
-        'default' => false,
+        'type' => 'double',
+        'not_null' => '1',
+        'default' => '0',
       ),
       'longitude' => 
       array (
-        'type' => 'auto_increment',
-        'default' => false,
+        'type' => 'double',
+        'not_null' => '1',
+        'default' => '0',
       ),
     ),
     'indexes' => 
