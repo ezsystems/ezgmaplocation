@@ -2,7 +2,7 @@ CHANGELOG
 
 Version 1.0
 -------------------------------------------------------------------------------
-* added sql file for Oracle databases
+
 
 Version 1.0beta1
 -------------------------------------------------------------------------------
@@ -19,6 +19,7 @@ Version 1.0beta1
 * Added support for sorting by distance when using Extended attribute filter
 * Added support for arccosine and pythagorean distance algorithm in distance
   calculation in the Extended attribute filter in addition to bounding box
+* added sql file for Oracle databases
 
 Version 0.5
 -------------------------------------------------------------------------------
