@@ -1,0 +1,24 @@
+Misc ideas:
+
+class/edit:
+* Checkbox to enable map types control (map, satellite, hybrid)
+* Drop down for zoom control type
+* Be able to change size of map
+* Be able to set default starting point, zoom level and map type
+* Checkbox to hide Latitude and Longitude input form fields
+
+class/view:
+* preview settings and default location using map
+
+content/edit:
+* use data from class/edit
+* store zoom level
+* store map type
+
+content/view:
+* use zoom level and map type as stored in content/edit
+
+
+General:
+* Merge back gmap.tpl from gmaplocation datatype for showing several nodes on a map
+* Add ezxmltext custom tag for inserting map in content 
