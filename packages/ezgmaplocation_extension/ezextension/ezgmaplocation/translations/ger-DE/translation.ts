@@ -32,6 +32,10 @@
         <translation>Ort aktualisieren</translation>
     </message>
     <message>
+        <source>Restore</source>
+        <translation>Wiederherstellen</translation>
+    </message>
+    <message>
         <source>Update values</source>
         <translation>Werte aktualisieren</translation>
     </message>

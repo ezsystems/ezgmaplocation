@@ -14,11 +14,6 @@
     <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_longitude_{$attribute.id}" value="{$attribute.content.longitude}" />
   </div>
-
-  <div class="block">
-    <label>{'Update Location'|i18n('extension/ezgmaplocation/datatype')}:</label>
-    <input class="defaultbutton" type="button" id="ezgml-update-button-{$attribute.id}" value="{'Update values'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" />
-  </div>
 </div>
 
 <div class="element">
@@ -50,7 +45,7 @@
                   map.setCenter(point, 13);
                   var marker = new GMarker(point);
                   map.addOverlay(marker);
-                  // updateLatLngFields(point);
+                  updateLatLngFields(point);
                 }
               }
             );
@@ -59,15 +54,25 @@
         
         var updateLatLngFields = function( point )
         {
-            document.getElementById(latid).value = point.lat(); 
-            document.getElementById(longid).value = point.lng(); 
+            document.getElementById(latid).value = point.lat();
+            document.getElementById(longid).value = point.lng();
+            document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = false;
         };
 
-        var updateLatLngFieldsWrapper = function()
+        var restoretLatLngFields = function()
         {
-            var point = new GLatLng( map.getCenter().lat(), map.getCenter().lng() );
-            updateLatLngFields( point );
-        };    
+            document.getElementById( latid ).value     = document.getElementById('ezgml_hidden_latitude_' + attributeId ).value;
+            document.getElementById( longid ).value    = document.getElementById('ezgml_hidden_longitude_' + attributeId ).value;
+            document.getElementById( addressid ).value = document.getElementById('ezgml_hidden_address_' + attributeId ).value;
+            if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
+            {
+                var point = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
+                map.setCenter(point, 13);
+                map.addOverlay( new GMarker(point) );
+            }
+            document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
+            return false;
+        };
 
         if (GBrowserIsCompatible())
         {
@@ -93,12 +98,12 @@
                 map.clearOverlays();
                 map.addOverlay( new GMarker( point ) );
                 map.panTo( point );
-                // updateLatLngFields(point);
+                updateLatLngFields(point);
                 document.getElementById( addressid ).value= '';
             });
 
             document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
-            document.getElementById( 'ezgml-update-button-' + attributeId ).onclick = updateLatLngFieldsWrapper;
+            document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
         }
     }
 {/literal}
@@ -116,9 +121,14 @@ else if ( window.attachEvent )
 -->
 </script>
 
-<div id="ezgml-map-{$attribute.id}" style="width: 400px; height: 280px;"></div>
-    <input type="text" id="ezgml-address-{$attribute.id}" size="54" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
+<div id="ezgml-map-{$attribute.id}" style="width: 500px; height: 280px;"></div>
+    <input type="text" id="ezgml-address-{$attribute.id}" size="59" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
     <input class="defaultbutton" type="button" id="ezgml-address-button-{$attribute.id}" value="{'Find address'|i18n('extension/ezgmaplocation/datatype')}"/>
+    <input class="defaultbutton" type="button" id="ezgml-restore-button-{$attribute.id}" value="{'Restore'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" disabled="disabled" />
+
+    <input id="ezgml_hidden_address_{$attribute.id}" type="hidden" name="ezgml_hidden_address_{$attribute.id}" value="{$attribute.content.address}" disabled="disabled" />
+    <input id="ezgml_hidden_latitude_{$attribute.id}" type="hidden" name="ezgml_hidden_latitude_{$attribute.id}" value="{$attribute.content.latitude}" disabled="disabled" />
+    <input id="ezgml_hidden_longitude_{$attribute.id}" type="hidden" name="ezgml_hidden_longitude_{$attribute.id}" value="{$attribute.content.longitude}" disabled="disabled" />
 </div>
 
 <div class="break"></div>

@@ -13,6 +13,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Invalid Latitude/Longitude input.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25,7 +29,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Update values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

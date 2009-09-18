@@ -42,5 +42,5 @@ else if ( window.attachEvent )
 </div>
 
 <label>{'Map'|i18n('extension/ezgmaplocation/datatype')}:</label>
-<div id="ezgml-map-{$attribute.id}" style="width: 400px; height: 280px;"></div>
+<div id="ezgml-map-{$attribute.id}" style="width: 500px; height: 280px;"></div>
 {/if}
