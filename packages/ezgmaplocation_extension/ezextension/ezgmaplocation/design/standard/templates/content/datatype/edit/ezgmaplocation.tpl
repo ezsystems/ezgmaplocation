@@ -42,10 +42,11 @@
                 }
                 else
                 {
-                  map.setCenter(point, 13);
-                  var marker = new GMarker(point);
-                  map.addOverlay(marker);
-                  updateLatLngFields(point);
+                  //map.setCenter(point, 13);
+                  map.clearOverlays();
+                  map.addOverlay( new GMarker(point) );
+                  map.panTo( point );
+                  updateLatLngFields( point );
                 }
               }
             );
@@ -67,8 +68,10 @@
             if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
             {
                 var point = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
-                map.setCenter(point, 13);
+                //map.setCenter(point, 13);
+                map.clearOverlays();
                 map.addOverlay( new GMarker(point) );
+                map.panTo( point );
             }
             document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
             return false;
@@ -98,8 +101,8 @@
                 map.clearOverlays();
                 map.addOverlay( new GMarker( point ) );
                 map.panTo( point );
-                updateLatLngFields(point);
-                document.getElementById( addressid ).value= '';
+                updateLatLngFields( point );
+                document.getElementById( addressid ).value = '';
             });
 
             document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;

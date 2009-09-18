@@ -5,6 +5,7 @@ Version 1.0
 * Removed Update Location button and made location update automatically on
   marker change.
 * Added restore button to restore values to value it had on page load.
+* Clear overlay markers on find address click and restore click
 
 Version 1.0beta1
 -------------------------------------------------------------------------------
