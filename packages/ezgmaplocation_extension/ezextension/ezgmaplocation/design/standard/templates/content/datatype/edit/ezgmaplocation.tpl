@@ -42,10 +42,10 @@
                 }
                 else
                 {
-                  //map.setCenter(point, 13);
+                  map.setCenter(point, 13);
                   map.clearOverlays();
                   map.addOverlay( new GMarker(point) );
-                  map.panTo( point );
+                  //map.panTo( point );
                   updateLatLngFields( point );
                 }
               }
