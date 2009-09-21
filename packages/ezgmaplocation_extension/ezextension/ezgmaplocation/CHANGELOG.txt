@@ -6,6 +6,8 @@ Version 1.0
   marker change.
 * Added restore button to restore values to value it had on page load.
 * Clear overlay markers on find address click and restore click
+* Make edit ui more intuitive by rearranging buttons and use button class
+* Add current location button to get location from GeoLocation api if available
 
 Version 1.0beta1
 -------------------------------------------------------------------------------
