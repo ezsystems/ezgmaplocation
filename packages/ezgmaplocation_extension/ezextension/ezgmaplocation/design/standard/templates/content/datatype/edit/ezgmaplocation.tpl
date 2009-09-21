@@ -90,7 +90,7 @@
             },
             function( e )
             {
-                alert( 'Could not get your location, error was: ' + message );
+                alert( 'Could not get your location, error was: ' + e.message );
             },
             { 'gearsRequestAddress': true });
         };
