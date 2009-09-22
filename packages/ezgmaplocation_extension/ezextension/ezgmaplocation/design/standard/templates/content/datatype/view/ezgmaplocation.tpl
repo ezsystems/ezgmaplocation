@@ -2,21 +2,21 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
 <script type="text/javascript">
 {literal}
-    function eZGmapLocation_MapView( attributeId, latitude, longitude )
+function eZGmapLocation_MapView( attributeId, latitude, longitude )
+{
+    if (GBrowserIsCompatible()) 
     {
-        if (GBrowserIsCompatible()) 
-        {
-            if( latitude && longitude )
-                var startPoint = new GLatLng( latitude, longitude ), zoom = 13;
-            else
-                var startPoint = new GLatLng( 0, 0 ), zoom = 0;
+        if( latitude && longitude )
+            var startPoint = new GLatLng( latitude, longitude ), zoom = 13;
+        else
+            var startPoint = new GLatLng( 0, 0 ), zoom = 0;
 
-            var map = new GMap2( document.getElementById( 'ezgml-map-' + attributeId ) );
-            map.addControl( new GSmallMapControl() );
-            map.setCenter( startPoint, zoom );
-            map.addOverlay( new GMarker(startPoint) );
-        }
+        var map = new GMap2( document.getElementById( 'ezgml-map-' + attributeId ) );
+        map.addControl( new GSmallMapControl() );
+        map.setCenter( startPoint, zoom );
+        map.addOverlay( new GMarker(startPoint) );
     }
+}
 {/literal}
 </script>
 {/run-once}

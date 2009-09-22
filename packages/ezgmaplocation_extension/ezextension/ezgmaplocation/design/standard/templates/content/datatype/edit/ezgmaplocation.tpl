@@ -9,131 +9,120 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}&amp;sensor=true" type="text/javascript"></script>
 <script type="text/javascript">
 {literal}
-    function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
-    { 
-        var mapid = 'ezgml-map-' + attributeId, latid  = 'ezcoa-' + latLongAttributeBase + '_latitude', longid = 'ezcoa-' + latLongAttributeBase + '_longitude';
-        var geocoder = null, addressid = 'ezgml-address-' + attributeId;
-    
-        var showAddress = function()
+function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
+{
+    var mapid = 'ezgml-map-' + attributeId, latid  = 'ezcoa-' + latLongAttributeBase + '_latitude', longid = 'ezcoa-' + latLongAttributeBase + '_longitude';
+    var geocoder = null, addressid = 'ezgml-address-' + attributeId;
+
+    var showAddress = function()
+    {
+        var address = document.getElementById( addressid ).value;
+        if ( geocoder )
         {
-          var addrObj = document.getElementById( addressid );
-          var address = addrObj.value;
-          if ( geocoder )
-          {
-            geocoder.getLatLng(
-              address,
-              function( point )
-              {
-                if (!point)
+            geocoder.getLatLng( address, function( point )
+            {
+                if ( !point )
                 {
-                  alert(address + " not found");
+                    alert( address + " not found" );
                 }
                 else
                 {
-                  map.setCenter(point, 13);
-                  map.clearOverlays();
-                  map.addOverlay( new GMarker(point) );
-                  //map.panTo( point );
-                  updateLatLngFields( point );
+                    map.setCenter( point, 13 );
+                    map.clearOverlays();
+                    map.addOverlay( new GMarker( point ) );
+                    updateLatLngFields( point );
                 }
-              }
-            );
-          }
-        };
-        
-        var updateLatLngFields = function( point )
-        {
-            document.getElementById(latid).value = point.lat();
-            document.getElementById(longid).value = point.lng();
-            document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = false;
-            document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button';
-        };
-
-        var restoretLatLngFields = function()
-        {
-            document.getElementById( latid ).value     = document.getElementById('ezgml_hidden_latitude_' + attributeId ).value;
-            document.getElementById( longid ).value    = document.getElementById('ezgml_hidden_longitude_' + attributeId ).value;
-            document.getElementById( addressid ).value = document.getElementById('ezgml_hidden_address_' + attributeId ).value;
-            if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
-            {
-                var point = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
-                //map.setCenter(point, 13);
-                map.clearOverlays();
-                map.addOverlay( new GMarker(point) );
-                map.panTo( point );
-            }
-            document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
-            document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button-disabled';
-            return false;
-        };
-
-        var getUserPosition = function()
-        {
-            navigator.geolocation.getCurrentPosition(function(position)
-            {
-                var location = '';
-                if ( navigator.geolocation.type == 'Gears' && position.gearsAddress )
-                {
-                    location = [position.gearsAddress.city, position.gearsAddress.region, position.gearsAddress.country].join(', ');
-                }
-                else if ( navigator.geolocation.type == 'ClientLocation' )
-                {
-                    location = [position.address.city, position.address.region, position.address.country].join(', ');
-                }
-                document.getElementById( addressid ).value = location;
-                var point = new GLatLng(  position.coords.latitude, position.coords.longitude );
-                map.setCenter(point, 13);
-                map.clearOverlays();
-                map.addOverlay( new GMarker(point) );
-                //map.panTo( point );
-                updateLatLngFields( point );
-            },
-            function( e )
-            {
-                alert( 'Could not get your location, error was: ' + e.message );
-            },
-            { 'gearsRequestAddress': true });
-        };
-
-        if (GBrowserIsCompatible())
-        {
-            var startPoint = null, zoom = 0;
-            if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
-            {
-                startPoint = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
-                zoom = 13;
-            }
-            else
-            {
-                startPoint = new GLatLng(0,0);
-            }
-          
-            var map = new GMap2( document.getElementById( mapid ) );
-            map.addControl( new GSmallMapControl() );
-            map.addControl( new GMapTypeControl() );
-            map.setCenter( startPoint, zoom );
-            map.addOverlay( new GMarker( startPoint ) );
-            geocoder = new GClientGeocoder();
-            GEvent.addListener( map, 'click', function( newmarker, point )
-            {
-                map.clearOverlays();
-                map.addOverlay( new GMarker( point ) );
-                map.panTo( point );
-                updateLatLngFields( point );
-                document.getElementById( addressid ).value = '';
             });
+        }
+    };
+    
+    var updateLatLngFields = function( point )
+    {
+        document.getElementById(latid).value = point.lat();
+        document.getElementById(longid).value = point.lng();
+        document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = false;
+        document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button';
+    };
 
-            document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
-            document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
+    var restoretLatLngFields = function()
+    {
+        document.getElementById( latid ).value     = document.getElementById('ezgml_hidden_latitude_' + attributeId ).value;
+        document.getElementById( longid ).value    = document.getElementById('ezgml_hidden_longitude_' + attributeId ).value;
+        document.getElementById( addressid ).value = document.getElementById('ezgml_hidden_address_' + attributeId ).value;
+        if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
+        {
+            var point = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
+            //map.setCenter(point, 13);
+            map.clearOverlays();
+            map.addOverlay( new GMarker(point) );
+            map.panTo( point );
+        }
+        document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
+        document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button-disabled';
+        return false;
+    };
 
-            if ( navigator.geolocation )
-            {
-            	document.getElementById( 'ezgml-mylocation-button-' + attributeId ).onclick = getUserPosition;
-            	document.getElementById( 'ezgml-mylocation-button-' + attributeId ).className = 'button';
-            	document.getElementById( 'ezgml-mylocation-button-' + attributeId ).disabled = false;
-            }
+    var getUserPosition = function()
+    {
+        navigator.geolocation.getCurrentPosition( function( position )
+        {
+            var location = '', point = new GLatLng(  position.coords.latitude, position.coords.longitude );
+
+            if ( navigator.geolocation.type == 'Gears' && position.gearsAddress )
+                location = [position.gearsAddress.city, position.gearsAddress.region, position.gearsAddress.country].join(', ');
+            else if ( navigator.geolocation.type == 'ClientLocation' )
+                location = [position.address.city, position.address.region, position.address.country].join(', ');
+
+            document.getElementById( addressid ).value = location;
+            map.setCenter( point, 13 );
+            map.clearOverlays();
+            map.addOverlay( new GMarker(point) );
+            updateLatLngFields( point );
+        },
+        function( e )
+        {
+            alert( 'Could not get your location, error was: ' + e.message );
+        },
+        { 'gearsRequestAddress': true });
+    };
+
+    if (GBrowserIsCompatible())
+    {
+        var startPoint = null, zoom = 0, map = new GMap2( document.getElementById( mapid ) );
+        if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
+        {
+            startPoint = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
+            zoom = 13;
+        }
+        else
+        {
+            startPoint = new GLatLng(0,0);
+        }
+        map.addControl( new GSmallMapControl() );
+        map.addControl( new GMapTypeControl() );
+        map.setCenter( startPoint, zoom );
+        map.addOverlay( new GMarker( startPoint ) );
+        geocoder = new GClientGeocoder();
+        GEvent.addListener( map, 'click', function( newmarker, point )
+        {
+            map.clearOverlays();
+            map.addOverlay( new GMarker( point ) );
+            map.panTo( point );
+            updateLatLngFields( point );
+            document.getElementById( addressid ).value = '';
+        });
+
+        document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
+        document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
+
+        if ( navigator.geolocation )
+        {
+            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).onclick = getUserPosition;
+            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).className = 'button';
+            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).disabled = false;
         }
     }
+}
 {/literal}
 </script>
 {/run-once}
