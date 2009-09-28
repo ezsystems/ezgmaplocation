@@ -1,4 +1,4 @@
-eZGmapsLocation Datatype Extension
+eZGMapLocation Datatype Extension
 Version 1.x by eZ Systems AS
 
 Version 0.5 developed by Blend Interactive
@@ -14,7 +14,7 @@ Installation
 1.) Obtain a Google Maps Key for all domains you'll be using by registering
 your domains with Google at http://www.google.com/apis/maps/
 
-2.) Upload the ezgmapslocation folder to the extensions folder in your
+2.) Upload the ezgmaplocation folder to the extensions folder in your
 eZ Publish installation.
 
 3.) Activate the extension from the 'Extensions' portion of the
@@ -28,7 +28,9 @@ GMapsKey=<Long string of characters from Google>
 5.) Apply the ezgmaplocation table to your database with the included sql file:
 <eZP root>/extension/ezgmaplocation/sql/mysql/mysql.sql
 Using either phpmyadmin (easiest) or shell/console commands.
-TODO: test on pgsql and create one for it as well (try the above one in the mean time)
+
+Sql files are also provided for postgressql and oracle - refer to the
+database documentation on how to execute queries from a command-line clients
 
 6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
 
@@ -69,9 +71,4 @@ results based on how close the nodes are to the given cordinate.
  
  Also see 'arccosine' parameter in combination with 'as_object', false() to be able to get value to easily calculate distance.
  Example use: user x is 2,5 km away from you. Or Oslo, Norway is 416.8km from Stockholm, Sweden.
- 
- 
-TODO:
-------------
-For better accuracy, consider sitching to DOUBLE as datatype for longitude and latitude (FLOAT has ~30m error margin).
 
