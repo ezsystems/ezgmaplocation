@@ -4,5 +4,7 @@
 [TemplateSettings]
 ExtensionAutoloadPath[]=ezgmaplocation
 
+[RegionalSettings]
+TranslationExtensions[]=ezgmaplocation
 
 */ ?>
