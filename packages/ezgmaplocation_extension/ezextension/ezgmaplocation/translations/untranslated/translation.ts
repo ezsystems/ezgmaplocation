@@ -48,5 +48,9 @@
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>My current location</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

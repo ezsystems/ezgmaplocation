@@ -1,5 +1,10 @@
 CHANGELOG
 
+Version 1.0.1
+-------------------------------------------------------------------------------
+* Added nor-NO translation
+ (merged from trunk rev. 74)
+
 Version 1.0
 -------------------------------------------------------------------------------
 * Removed Update Location button and made location update automatically on
