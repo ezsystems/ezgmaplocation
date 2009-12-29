@@ -29,7 +29,7 @@ class eZGmapLocationInfo
     {
         return array(
             'Name' => '<a href="http://projects.ez.no/ezgmaplocation">eZ Google Maps Location</a> extension',
-            'Version' => '1.0.0',
+            'Version' => '1.1.0',
             'Copyright' => "Copyright (C) 2008 Joe Kepley, 2009 eZ Systems AS",
             'License' => 'GNU General Public License v2.0',
         );
