@@ -4,6 +4,8 @@ Version 1.1
 -------------------------------------------------------------------------------
 * Added nor-NO translation
 - Fixed bug #16160: Call to undefined function ezi18n()
+* added ini file to silence wrong suggestions to alter oracle db in system
+  upgrade check page
 
 Version 1.0
 -------------------------------------------------------------------------------
