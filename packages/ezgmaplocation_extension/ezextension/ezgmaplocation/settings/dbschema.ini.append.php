@@ -1,7 +1,7 @@
 <?php /*
 
 [oracle]
-ColumnTypeTranslation[ezgmaplocation.latitude]=float
-ColumnTypeTranslation[ezgmaplocation.longitude]=float
+ColumnTypeTranslation[ezgmaplocation.latitude]=double;float
+ColumnTypeTranslation[ezgmaplocation.longitude]=double;float
 
 */ ?>
