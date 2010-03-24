@@ -37,7 +37,7 @@ class ezgmlLocationFilter
     function createSqlParts( $params )
     {
         /*
-         * Filtering nodes witin a area relative to supplied cordinates.
+         * Filtering nodes within a area relative to supplied coordinates.
          * 
          * Params can be either hash or array, in case of array this is the order:
          * param 1: latitude
@@ -63,7 +63,7 @@ class ezgmlLocationFilter
          * NOTE on distance accuracy:
          * This filter uses a bounding box to make sure the sql is fast, this means distance is actually a square and not circle by default.
          * If you want more accuracy in the filter, use 'distance_as_circle' setting:
-         *    false()       : Default, fatest, no additional calculation other then the bounding box (square) distance
+         *    false()       : Default, fastest, no additional calculation other then the bounding box (square) distance
          *    'pythagorean' : Use somewhat fast pythagorean calculation, accurate for small distances ( < 60km  )
          *    'arccosine'   : Use full arccosine calculation, in this case provide 'arccosine_distance' as well
          *
