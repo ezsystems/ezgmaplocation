@@ -2,6 +2,7 @@ CHANGELOG
 
 Version 1.1
 -------------------------------------------------------------------------------
+* Added extension.xml. Replaces loading.php and ezinfo.php starting from ezp4.4
 * Added nor-NO translation
 * Fixed bug #16160: Call to undefined function ezi18n()
 * Implemented enhancement #016711: Making extension aware of the
