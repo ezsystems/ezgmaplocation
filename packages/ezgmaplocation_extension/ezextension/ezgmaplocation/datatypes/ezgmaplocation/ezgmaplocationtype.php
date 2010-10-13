@@ -35,9 +35,6 @@
  * @package eZDatatype
  * @see eZGmapLocation
  */
-
-require_once( 'kernel/common/i18n.php' );
-
 class eZGmapLocationType extends eZDataType
 {
     const DATA_TYPE_STRING = 'ezgmaplocation';
@@ -47,14 +44,14 @@ class eZGmapLocationType extends eZDataType
      */
     function __construct()
     {
-        parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'extension/ezgmaplocation/datatype', "GMap Location", 'Datatype name' ),
+        parent::__construct( self::DATA_TYPE_STRING, ezpI18n::tr( 'extension/ezgmaplocation/datatype', "GMap Location", 'Datatype name' ),
                            array( 'serialize_supported' => true ) );
     }
 
     /**
      * Validate post data, these are then used by
      * {@link eZGmapLocationType::fetchObjectAttributeHTTPInput()}
-     * 
+     *
      * @param eZHTTPTool $http
      * @param string $base
      * @param eZContentObjectAttribute $contentObjectAttribute
@@ -76,25 +73,25 @@ class eZGmapLocationType extends eZDataType
         {
             if ( !$classAttribute->attribute( 'is_information_collector' ) && $contentObjectAttribute->validateIsRequired() )
             {
-                $contentObjectAttribute->setValidationError( ezi18n( 'extension/ezgmaplocation/datatype',
+                $contentObjectAttribute->setValidationError( ezpI18n::tr( 'extension/ezgmaplocation/datatype',
                                                                      'Missing Latitude/Longitude input.' ) );
                 return eZInputValidator::STATE_INVALID;
             }
         }
         else if ( !is_numeric( $latitude ) || !is_numeric( $longitude ) )
         {
-            $contentObjectAttribute->setValidationError( ezi18n( 'extension/ezgmaplocation/datatype',
+            $contentObjectAttribute->setValidationError( ezpI18n::tr( 'extension/ezgmaplocation/datatype',
                                                                  'Invalid Latitude/Longitude input.' ) );
             return eZInputValidator::STATE_INVALID;
         }
-        
+
         return eZInputValidator::STATE_ACCEPTED;
     }
 
     /**
      * Set parameters from post data, expects post data to be validated by
      * {@link eZGmapLocationType::validateObjectAttributeHTTPInput()}
-     * 
+     *
      * @param eZHTTPTool $http
      * @param string $base
      * @param eZContentObjectAttribute $contentObjectAttribute
@@ -129,7 +126,7 @@ class eZGmapLocationType extends eZDataType
             }
             else
             {
-		        $location = new eZGmapLocation( array( 
+		        $location = new eZGmapLocation( array(
 		                        'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
 		                        'contentobject_version' => $contentObjectAttribute->attribute('version'),
 		                        'latitude' => $latitude,
@@ -152,12 +149,12 @@ class eZGmapLocationType extends eZDataType
     /**
      * Stores the content, as set by {@link eZGmapLocationType::fetchObjectAttributeHTTPInput()}
      * or {@link eZGmapLocationType::initializeObjectAttribute()}
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return bool
      */
     function storeObjectAttribute( $contentObjectAttribute )
-    {   
+    {
         if ( $contentObjectAttribute->attribute( 'data_int' ) != 0 )
         {
     	   $gp = $contentObjectAttribute->attribute( 'content' );
@@ -172,7 +169,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Init attribute ( also handles version to version copy, and attribute to attribute copy )
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @param int|null $currentVersion
      * @param eZContentObjectAttribute $originalContentObjectAttribute
@@ -199,7 +196,7 @@ class eZGmapLocationType extends eZDataType
     /**
      * Return content (eZGmapLocation object), either stored one or a new empty one based on
      * if attribute has data or not (as signaled by data_int)
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return eZGmapLocation
      */
@@ -211,7 +208,7 @@ class eZGmapLocationType extends eZDataType
            if ( !$gmapObject instanceof eZGmapLocation )
            {
                $gmapObject = eZGmapLocation::create( $contentObjectAttribute->attribute( 'id' ), $contentObjectAttribute->attribute( 'version' ), '', '' );
-               // This happens when attribute is cloned, since sync() is called before init() on attribute. 
+               // This happens when attribute is cloned, since sync() is called before init() on attribute.
                //eZDebug::writeWarning( 'eZGmapLocation::fetch returned empty, even though data_int says there is content. Might be data corruption! ' . var_export(debug_backtrace( false ), true), __METHOD__ );
            }
         }
@@ -225,7 +222,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Indicates if attribute has content or not (data_int is used for this)
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return bool
      */
@@ -236,7 +233,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Generate meta data of attribute
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return string
      */
@@ -248,7 +245,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Indicates that datatype is searchable {@link eZGmapLocationType::metaData()}
-     * 
+     *
      * @return bool
      */
     function isIndexable()
@@ -258,7 +255,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Returns sort value for attribute
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return string
      */
@@ -270,7 +267,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Tells what kind of sort value is returned, see {@link eZGmapLocationType::sortKey()}
-     * 
+     *
      * @return string
      */
     function sortKeyType()
@@ -280,7 +277,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Return string data for cosumption by {@link eZGmapLocationType::fromString()}
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @return string
      */
@@ -292,7 +289,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Store data from string format as created in  {@link eZGmapLocationType::toString()}
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @param string $string
      */
@@ -302,7 +299,7 @@ class eZGmapLocationType extends eZDataType
 
     	if ( $data[0] != 0 )
     	{
-            $location = new eZGmapLocation( array( 
+            $location = new eZGmapLocation( array(
                             'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
                             'contentobject_version' => $contentObjectAttribute->attribute('version'),
                             'latitude' => $data[1],
@@ -316,7 +313,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Generate title of attribute
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @param string|null $name
      * @return string
@@ -329,7 +326,7 @@ class eZGmapLocationType extends eZDataType
 
     /**
      * Delete map location data when attribute (version) is removed
-     * 
+     *
      * @param eZContentObjectAttribute $contentObjectAttribute
      * @param int|null $version (Optional, deletes all versions if null)
      */
@@ -350,7 +347,7 @@ class eZGmapLocationType extends eZDataType
         {
         	$dom = $node->ownerDocument;
         	$gMap = $contentObjectAttribute->attribute( 'content' );
-        	
+
         	$latitude = $dom->createElement( 'latitude' );
         	$latitude->appendChild( $dom->createTextNode( $gMap->attribute('latitude') ) );
         	$node->appendChild( $latitude );
@@ -376,7 +373,7 @@ class eZGmapLocationType extends eZDataType
 
     	if ( $attributeNode->getAttribute( 'ezgl_has_content' ) != 0 )
         {
-            $location = new eZGmapLocation( array( 
+            $location = new eZGmapLocation( array(
                             'contentobject_attribute_id' => $contentObjectAttribute->attribute('id'),
                             'contentobject_version' => $contentObjectAttribute->attribute('version'),
                             'latitude' => $attributeNode->getElementsByTagName( 'latitude' )->item( 0 )->textContent,

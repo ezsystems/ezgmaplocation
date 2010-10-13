@@ -1,5 +1,9 @@
 CHANGELOG
 
+Version 1.2
+-------------------------------------------------------------------------------
+* Change use of old templateInit()/ezi18n() api and use class based api's introduced in 4.3 instead
+
 Version 1.1
 -------------------------------------------------------------------------------
 * Added extension.xml. Replaces loading.php and ezinfo.php starting from ezp4.4
