@@ -55,7 +55,10 @@ class eZGmapLocation extends eZPersistentObject
                                                         'name' => 'contentobject_attribute_id',
                                                         'datatype' => 'integer',
                                                         'default' => 0,
-                                                        'required' => true ),
+                                                        'required' => true,
+                                                        'foreign_class' => 'eZContentObjectAttribute',
+                                                        'foreign_attribute' => 'id',
+                                                        'multiplicity' => '1..*' ),
                                          'contentobject_version' => array( 
                                                         'name' => 'contentobject_version',
                                                         'datatype' => 'integer',
