@@ -29,7 +29,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
                 {
                     map.setOptions( { center: results[0].geometry.location, zoom : zoommax } );
 										marker.setPosition(  results[0].geometry.location );
-                    updateLatLngFields( point );
+                    updateLatLngFields( results[0].geometry.location );
                 }
                 else
                 {
