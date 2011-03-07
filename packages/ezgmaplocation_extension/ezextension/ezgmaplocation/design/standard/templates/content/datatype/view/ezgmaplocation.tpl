@@ -1,3 +1,6 @@
+{* Make sure to normalize floats from db  *}
+{def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
+     $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 {run-once}
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
 <script type="text/javascript">
@@ -26,16 +29,16 @@ function eZGmapLocation_MapView( attributeId, latitude, longitude )
 <!--
 
 if ( window.addEventListener )
-    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $attribute.content.latitude, '0.0')}, {first_set( $attribute.content.longitude, '0.0')} ) {rdelim}, false);
+    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $latitude, '0.0')}, {first_set( $longitude, '0.0')} ) {rdelim}, false);
 else if ( window.attachEvent )
-    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $attribute.content.latitude, '0.0')}, {first_set( $attribute.content.longitude, '0.0')} ) {rdelim} );
+    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $latitude, '0.0')}, {first_set( $longitude, '0.0')} ) {rdelim} );
 
 -->
 </script>
 
 <div class="block">
-<label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.latitude}
-<label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.longitude}
+<label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$latitude}
+<label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label> {$longitude}
   {if $attribute.content.address}
     <label>{'Address'|i18n('extension/ezgmaplocation/datatype')}:</label> {$attribute.content.address}
   {/if}
