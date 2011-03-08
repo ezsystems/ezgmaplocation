@@ -6,51 +6,51 @@
     <message>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation type="unfinished">Googleマップロケーション</translation>
+        <translation>Googleマップロケーション</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
-        <translation type="unfinished">緯度/軽度は入力されていません。</translation>
+        <translation>緯度/軽度は入力されていません。</translation>
     </message>
     <message>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation type="unfinished">緯度/軽度は無効です。</translation>
+        <translation>緯度/軽度は無効です。</translation>
     </message>
     <message>
         <source>Latitude</source>
-        <translation type="unfinished">緯度</translation>
+        <translation>緯度</translation>
     </message>
     <message>
         <source>Longitude</source>
-        <translation type="unfinished">軽度</translation>
-    </message>
-    <message>
-        <source>Update Location</source>
-        <translation type="unfinished">位置を更新</translation>
+        <translation>軽度</translation>
     </message>
     <message>
         <source>Restore</source>
-        <translation type="unfinished">戻す</translation>
-    </message>
-    <message>
-        <source>Update values</source>
-        <translation type="unfinished">値を更新</translation>
+        <translation>戻す</translation>
     </message>
     <message>
         <source>Find address</source>
-        <translation type="unfinished">住所を検索</translation>
+        <translation>住所を検索</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">住所</translation>
+        <translation>住所</translation>
     </message>
     <message>
         <source>Map</source>
-        <translation type="unfinished">地図</translation>
+        <translation>地図</translation>
     </message>
     <message>
         <source>My current location</source>
-        <translation type="unfinished">現在の位置</translation>
+        <translation>現在の位置</translation>
+    </message>
+    <message>
+        <source>Restores location and address values to what it was on page load.</source>
+        <translation>位置と住所をページが読み込まされた時の値に戻します。</translation>
+    </message>
+    <message>
+        <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
+        <translation>ブラウザがジオロケーションに対応した場合に現在の位置を取得します。端末にGPS機能がある場合に一番正確。アドレスを手動入力する可能性もあります！</translation>
     </message>
 </context>
 </TS>
