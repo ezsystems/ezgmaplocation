@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="sv">
-<defaultcodec></defaultcodec>
+<!DOCTYPE TS>
+<TS version="2.0" language="sv">
 <context>
     <name>extension/ezgmaplocation/datatype</name>
     <message>
@@ -25,15 +25,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -50,6 +42,14 @@
     </message>
     <message>
         <source>My current location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restores location and address values to what it was on page load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
