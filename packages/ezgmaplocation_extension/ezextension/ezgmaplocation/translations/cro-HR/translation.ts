@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>extension/ezgmaplocation/datatype</name>
     <message>
@@ -7,11 +9,11 @@
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
-        <translation type="obsolete">Nedostaje geografska širina/duljina.</translation>
+        <translation type="unfinished">Nedostaje geografska širina/duljina.</translation>
     </message>
     <message>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation type="obsolete">Neispravna geografska širina/duljina.</translation>
+        <translation type="unfinished">Neispravna geografska širina/duljina.</translation>
     </message>
     <message>
         <source>Latitude</source>
@@ -56,6 +58,11 @@
     <message>
         <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GMap Location</source>
+        <comment>Datatype name</comment>
+        <translation type="unfinished">GMap Lokacija</translation>
     </message>
 </context>
 </TS>

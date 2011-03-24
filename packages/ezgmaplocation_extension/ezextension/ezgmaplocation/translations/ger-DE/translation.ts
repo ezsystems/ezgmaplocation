@@ -1,18 +1,20 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>extension/ezgmaplocation/datatype</name>
     <message>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation type="obsolete">GMap Ort</translation>
+        <translation type="unfinished">GMap Ort</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
-        <translation type="obsolete">Längengrad/Breitengrad Eingabe fehlt.</translation>
+        <translation type="unfinished">Längengrad/Breitengrad Eingabe fehlt.</translation>
     </message>
     <message>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation type="obsolete">Längengrad/Breitengrad Eingabe ist fehlerhaft.</translation>
+        <translation type="unfinished">Längengrad/Breitengrad Eingabe ist fehlerhaft.</translation>
     </message>
     <message>
         <source>Latitude</source>
