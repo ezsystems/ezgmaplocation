@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS>
 <context>
     <name>extension/ezgmaplocation/datatype</name>
     <message>
-        <location filename="ezgmaplocationtype.php" line="48"/>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation>GMap lokasjon</translation>
+        <translation type="obsolete">GMap lokasjon</translation>
     </message>
     <message>
-        <location filename="ezgmaplocationtype.php" line="77"/>
         <source>Missing Latitude/Longitude input.</source>
-        <translation>Mangler Lengdegrad/Breddegrad verdier.</translation>
+        <translation type="obsolete">Mangler Lengdegrad/Breddegrad verdier.</translation>
     </message>
     <message>
-        <location filename="ezgmaplocationtype.php" line="84"/>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation>Ugyldig Lengdegrad/Breddegrad verdier.</translation>
+        <translation type="obsolete">Ugyldig Lengdegrad/Breddegrad verdier.</translation>
     </message>
     <message>
         <source>Latitude</source>
@@ -28,7 +24,7 @@
     </message>
     <message>
         <source>Update Location</source>
-        <translation>Oppdater lokasjon</translation>
+        <translation type="obsolete">Oppdater lokasjon</translation>
     </message>
     <message>
         <source>Restore</source>
@@ -36,7 +32,7 @@
     </message>
     <message>
         <source>Update values</source>
-        <translation>Oppdater verdier</translation>
+        <translation type="obsolete">Oppdater verdier</translation>
     </message>
     <message>
         <source>Find address</source>
@@ -53,6 +49,14 @@
     <message>
         <source>My current location</source>
         <translation>Min nåværende lokasjon</translation>
+    </message>
+    <message>
+        <source>Restores location and address values to what it was on page load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

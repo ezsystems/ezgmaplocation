@@ -1,21 +1,17 @@
-<!DOCTYPE TS>
-<TS>
+<!DOCTYPE TS><TS>
 <context>
     <name>extension/ezgmaplocation/datatype</name>
     <message>
-        <location filename="ezgmaplocationtype.php" line="48"/>
         <source>GMap Location</source>
-        <translation>GMap Lokacija</translation>
+        <translation type="obsolete">GMap Lokacija</translation>
     </message>
     <message>
-        <location filename="ezgmaplocationtype.php" line="77"/>
         <source>Missing Latitude/Longitude input.</source>
-        <translation>Nedostaje geografska širina/duljina.</translation>
+        <translation type="obsolete">Nedostaje geografska širina/duljina.</translation>
     </message>
     <message>
-        <location filename="ezgmaplocationtype.php" line="84"/>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation>Neispravna geografska širina/duljina.</translation>
+        <translation type="obsolete">Neispravna geografska širina/duljina.</translation>
     </message>
     <message>
         <source>Latitude</source>
@@ -27,7 +23,7 @@
     </message>
     <message>
         <source>Update Location</source>
-        <translation>Ažuriraj lokaciju</translation>
+        <translation type="obsolete">Ažuriraj lokaciju</translation>
     </message>
     <message>
         <source>Restore</source>
@@ -35,7 +31,7 @@
     </message>
     <message>
         <source>Update values</source>
-        <translation>Ažuriraj vrijednosti</translation>
+        <translation type="obsolete">Ažuriraj vrijednosti</translation>
     </message>
     <message>
         <source>Find address</source>
@@ -52,6 +48,14 @@
     <message>
         <source>My current location</source>
         <translation>Moja trenutna lokacija</translation>
+    </message>
+    <message>
+        <source>Restores location and address values to what it was on page load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

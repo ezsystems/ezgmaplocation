@@ -4,15 +4,15 @@
     <message>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation>Dirección GMap</translation>
+        <translation type="obsolete">Dirección GMap</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
-        <translation>Falta introducir una longitud y una latitud.</translation>
+        <translation type="obsolete">Falta introducir una longitud y una latitud.</translation>
     </message>
     <message>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation>Longitud/Latitud incorrecta.</translation>
+        <translation type="obsolete">Longitud/Latitud incorrecta.</translation>
     </message>
     <message>
         <source>Find address</source>
