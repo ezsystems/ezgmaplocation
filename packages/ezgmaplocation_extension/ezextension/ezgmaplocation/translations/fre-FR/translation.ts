@@ -50,7 +50,7 @@
     </message>
     <message>
         <source>Restores location and address values to what it was on page load.</source>
-        <translation>Restaurer la position et l'adresse à leur valeur au moment du chargement de la page.</translation>
+        <translation>Restaurer la position et l'adresse à leurs valeurs au moment du chargement de la page.</translation>
     </message>
     <message>
         <source>My current location</source>
@@ -58,7 +58,7 @@
     </message>
     <message>
         <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
-        <translation>Trouve votre position si votre navigateur supporte l'API de Geolocalisation and si vous autorisez à y accéder ! Cette fonctionnalité est très précise si votre appareil dispose d'une puce GPS ! Mais vous pouvez également avoir taper manuellement une adresse !</translation>
+        <translation>Récupère votre position actuelle si votre navigateur supporte la géolocalisation et si vous autorisez ce site web à y accéder ! Cette fonctionnalité est très précise si votre appareil dispose d'une puce GPS ! Notez cependant qu'il est possible que vous ayez quand même à taper votre adresse manuellement!</translation>
     </message>
 </context>
 </TS>
