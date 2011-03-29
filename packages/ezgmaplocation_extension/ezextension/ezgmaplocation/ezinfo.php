@@ -29,9 +29,9 @@ class eZGmapLocationInfo
     {
         return array(
             'Name' => '<a href="http://projects.ez.no/ezgmaplocation">eZ Google Maps Location</a> extension',
-            'Version' => '1.1.0',
+            'Version' => '//autogentag//',
             'Copyright' => "Copyright (C) 2008 Joe Kepley, 2009-2010 eZ Systems AS",
-            'License' => 'GNU General Public License v2.0',
+            'License' => '//EZP_LICENSE//',
         );
     }
 }
