@@ -1,11 +1,11 @@
 <?php
 //
-// Definition of eZStarRatingInfo class
+// Definition of eZGmapLocationInfo class
 //
 // SOFTWARE NAME: eZ Google Maps Location
 // SOFTWARE RELEASE: //autogentag//
 // COPYRIGHT NOTICE: Copyright (C) 2009-2010 eZ Systems AS
-// SOFTWARE LICENSa: GNU General Public License v2.0
+// SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
