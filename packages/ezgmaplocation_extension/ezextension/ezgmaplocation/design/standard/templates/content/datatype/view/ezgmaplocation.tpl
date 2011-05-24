@@ -2,32 +2,40 @@
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 {run-once}
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+{/run-once}
+{run-once}
 <script type="text/javascript">
 {literal}
-function eZGmapLocation_MapView( attributeId, latitude, longitude )
-{
-    if (GBrowserIsCompatible()) 
-    {
-        if( latitude && longitude )
-            var startPoint = new GLatLng( latitude, longitude ), zoom = 13;
-        else
-            var startPoint = new GLatLng( 0, 0 ), zoom = 0;
-
-        var map = new GMap2( document.getElementById( 'ezgml-map-' + attributeId ) );
-        map.addControl( new GSmallMapControl() );
-        map.setCenter( startPoint, zoom );
-        map.addOverlay( new GMarker(startPoint) );
-    }
+function eZGmapLocation_MapView( attributeId, latitude, longitude ){
+        if( latitude && longitude ){
+            var myLatlng = new google.maps.LatLng(latitude,longitude);
+            var myOptions = {
+              zoom: 13,
+              center: myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        }else{
+            var myLatlng = new google.maps.LatLng(0,0);
+            var myOptions = {
+              zoom: 0,
+              center: myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        }
+        var map = new google.maps.Map(document.getElementById( 'ezgml-map-' + attributeId ), myOptions);
+        var marker = new google.maps.Marker({
+            position: myLatlng, 
+            map: map
+        });   
 }
-{/literal}
 </script>
+{/literal}
 {/run-once}
-
+carte
 {if $attribute.has_content}
 <script type="text/javascript">
 <!--
-
 if ( window.addEventListener )
     window.addEventListener('load', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $latitude, '0.0')}, {first_set( $longitude, '0.0')} ) {rdelim}, false);
 else if ( window.attachEvent )

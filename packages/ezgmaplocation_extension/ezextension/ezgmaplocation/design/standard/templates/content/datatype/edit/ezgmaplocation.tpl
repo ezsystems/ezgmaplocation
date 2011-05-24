@@ -6,37 +6,35 @@
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 <div class="block">
-
 <div class="element">
 {run-once}
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}&amp;sensor=true" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
 {literal}
 function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
 {
-    var mapid = 'ezgml-map-' + attributeId, latid  = 'ezcoa-' + latLongAttributeBase + '_latitude', longid = 'ezcoa-' + latLongAttributeBase + '_longitude';
-    var geocoder = null, addressid = 'ezgml-address-' + attributeId;
-
+    var mapid = 'ezgml-map-' + attributeId;
+    var latid  = 'ezcoa-' + latLongAttributeBase + '_latitude';
+    var longid = 'ezcoa-' + latLongAttributeBase + '_longitude';
+    var geocoder = new google.maps.Geocoder();
+    var addressid = 'ezgml-address-' + attributeId;
+    var marker = null;
+       
     var showAddress = function()
     {
         var address = document.getElementById( addressid ).value;
-        if ( geocoder )
-        {
-            geocoder.getLatLng( address, function( point )
-            {
-                if ( !point )
-                {
-                    alert( address + " not found" );
-                }
-                else
-                {
-                    map.setCenter( point, 13 );
-                    map.clearOverlays();
-                    map.addOverlay( new GMarker( point ) );
-                    updateLatLngFields( point );
-                }
-            });
-        }
+        geocoder.geocode( { 'address': address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                    map: map, 
+                    position: results[0].geometry.location
+                });
+                updateLatLngFields( results[0].geometry.location );
+              } else {
+                alert("Geocode was not successful for the following reason: " + status);
+              }
+        });
     };
     
     var updateLatLngFields = function( point )
@@ -46,40 +44,43 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = false;
         document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button';
     };
-
+    
     var restoretLatLngFields = function()
-    {
+        {
         document.getElementById( latid ).value     = document.getElementById('ezgml_hidden_latitude_' + attributeId ).value;
         document.getElementById( longid ).value    = document.getElementById('ezgml_hidden_longitude_' + attributeId ).value;
         document.getElementById( addressid ).value = document.getElementById('ezgml_hidden_address_' + attributeId ).value;
         if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
         {
-            var point = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
-            //map.setCenter(point, 13);
-            map.clearOverlays();
-            map.addOverlay( new GMarker(point) );
-            map.panTo( point );
+             marker = new google.maps.Marker({
+                    map: map, 
+                    position: new google.maps.LatLng( document.getElementById( latid ).value, document.getElementById( longid ).value )
+             });            
+             map.setCenter(new google.maps.LatLng( document.getElementById( latid ).value, document.getElementById( longid ).value), 13);
+            
         }
         document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
         document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button-disabled';
         return false;
     };
-
-    var getUserPosition = function()
+    
+var getUserPosition = function()
     {
         navigator.geolocation.getCurrentPosition( function( position )
         {
-            var location = '', point = new GLatLng(  position.coords.latitude, position.coords.longitude );
-
+            var location = '';
+            var point = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
             if ( navigator.geolocation.type == 'Gears' && position.gearsAddress )
                 location = [position.gearsAddress.city, position.gearsAddress.region, position.gearsAddress.country].join(', ');
             else if ( navigator.geolocation.type == 'ClientLocation' )
                 location = [position.address.city, position.address.region, position.address.country].join(', ');
-
+            
             document.getElementById( addressid ).value = location;
-            map.setCenter( point, 13 );
-            map.clearOverlays();
-            map.addOverlay( new GMarker(point) );
+            map.setCenter(point);
+            marker = new google.maps.Marker({
+                    map: map, 
+                    position: point
+            });
             updateLatLngFields( point );
         },
         function( e )
@@ -88,43 +89,40 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         },
         { 'gearsRequestAddress': true });
     };
-
-    if (GBrowserIsCompatible())
-    {
-        var startPoint = null, zoom = 0, map = new GMap2( document.getElementById( mapid ) );
-        if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
-        {
-            startPoint = new GLatLng( document.getElementById( latid ).value, document.getElementById( longid ).value );
-            zoom = 13;
-        }
-        else
-        {
-            startPoint = new GLatLng(0,0);
-        }
-        map.addControl( new GSmallMapControl() );
-        map.addControl( new GMapTypeControl() );
-        map.setCenter( startPoint, zoom );
-        map.addOverlay( new GMarker( startPoint ) );
-        geocoder = new GClientGeocoder();
-        GEvent.addListener( map, 'click', function( newmarker, point )
-        {
-            map.clearOverlays();
-            map.addOverlay( new GMarker( point ) );
-            map.panTo( point );
-            updateLatLngFields( point );
-            document.getElementById( addressid ).value = '';
-        });
-
-        document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
-        document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
-
-        if ( navigator.geolocation )
-        {
-            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).onclick = getUserPosition;
-            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).className = 'button';
-            document.getElementById( 'ezgml-mylocation-button-' + attributeId ).disabled = false;
-        }
+       
+    var startPoint = null;
+    var zoom = 13;
+    var myOptions = {
+              zoom: zoom,
+              center: startPoint,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
     }
+    var map = new google.maps.Map(document.getElementById( mapid ), myOptions);
+    if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
+    {
+        startPoint =  new google.maps.LatLng( document.getElementById( latid ).value, document.getElementById( longid ).value);
+        zoom = 13;
+        marker = new google.maps.Marker({
+                map: map, 
+                position: startPoint
+        });
+    }
+    else
+    {
+        startPoint = new google.maps.LatLng(0,0);
+    }
+    map.setCenter( startPoint ); 
+    map.setZoom( zoom );    
+    document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
+    document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
+
+    if ( navigator.geolocation )
+    {
+        document.getElementById( 'ezgml-mylocation-button-' + attributeId ).onclick = getUserPosition;
+        document.getElementById( 'ezgml-mylocation-button-' + attributeId ).className = 'button';
+        document.getElementById( 'ezgml-mylocation-button-' + attributeId ).disabled = false;
+    }
+ 
 }
 {/literal}
 </script>
@@ -132,7 +130,6 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
 
 <script type="text/javascript">
 <!--
-
 if ( window.addEventListener )
     window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim}, false);
 else if ( window.attachEvent )
@@ -156,7 +153,7 @@ else if ( window.attachEvent )
     <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_latitude_{$attribute.id}" value="{$latitude}" />
   </div>
-  
+
   <div class="block">
     <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_longitude_{$attribute.id}" value="{$longitude}" />
