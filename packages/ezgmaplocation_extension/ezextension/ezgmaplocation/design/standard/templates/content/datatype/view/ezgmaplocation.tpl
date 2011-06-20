@@ -2,23 +2,27 @@
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 {run-once}
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={ezini('SiteSettings','GMapsKey')}" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor={ezini('GMapSettings', 'UseSensor', 'ezgmaplocation.ini')}"></script>
 <script type="text/javascript">
 {literal}
 function eZGmapLocation_MapView( attributeId, latitude, longitude )
 {
-    if (GBrowserIsCompatible()) 
-    {
-        if( latitude && longitude )
-            var startPoint = new GLatLng( latitude, longitude ), zoom = 13;
-        else
-            var startPoint = new GLatLng( 0, 0 ), zoom = 0;
+	var zoommax = 13;
+	
+	if( latitude && longitude )
+	{
+		var startPoint = new google.maps.LatLng( latitude, longitude );
+		var zoom = zoommax;
+		
+	}
+  else
+  {
+      var startPoint = new google.maps.LatLng( 0, 0 );
+      var zoom = 0;
+  }
 
-        var map = new GMap2( document.getElementById( 'ezgml-map-' + attributeId ) );
-        map.addControl( new GSmallMapControl() );
-        map.setCenter( startPoint, zoom );
-        map.addOverlay( new GMarker(startPoint) );
-    }
+  var map = new google.maps.Map( document.getElementById( 'ezgml-map-' + attributeId ), { center: startPoint, zoom : zoom, mapTypeId: google.maps.MapTypeId.ROADMAP } );
+	var marker = new google.maps.Marker({ map: map, position: startPoint });
 }
 {/literal}
 </script>
