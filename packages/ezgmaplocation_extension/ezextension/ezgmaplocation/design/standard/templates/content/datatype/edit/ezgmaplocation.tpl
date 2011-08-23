@@ -31,7 +31,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
                 if ( status == google.maps.GeocoderStatus.OK )
                 {
                     map.setOptions( { center: results[0].geometry.location, zoom : zoommax } );
-										marker.setPosition(  results[0].geometry.location );
+                                        marker.setPosition(  results[0].geometry.location );
                     updateLatLngFields( results[0].geometry.location );
                 }
                 else
@@ -91,10 +91,10 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
         { 'gearsRequestAddress': true });
     };
 
-		var startPoint = null;
-		var zoom = 0;
-		var map = null;
-		var marker = null;
+        var startPoint = null;
+        var zoom = 0;
+        var map = null;
+        var marker = null;
         
     if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
     {
@@ -109,25 +109,25 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
     map = new google.maps.Map( document.getElementById( mapid ), { center: startPoint, zoom : zoom, mapTypeId: google.maps.MapTypeId.ROADMAP } );
     marker = new google.maps.Marker({ map: map, position: startPoint, draggable: true });
     google.maps.event.addListener( marker, 'dragend', function( event ){
-    	updateLatLngFields( event.latLng );
-			document.getElementById( addressid ).value = '';
+        updateLatLngFields( event.latLng );
+            document.getElementById( addressid ).value = '';
     })
     
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener( map, 'click', function( event )
     {
-			marker.setPosition( event.latLng );
-			map.panTo( event.latLng );
-			updateLatLngFields( event.latLng );
-			document.getElementById( addressid ).value = '';
+            marker.setPosition( event.latLng );
+            map.panTo( event.latLng );
+            updateLatLngFields( event.latLng );
+            document.getElementById( addressid ).value = '';
      });
 
 
     document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
     document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
 
-	if (autoSearch)
-		showAddress();
+    if ( autoSearch )
+        showAddress();
 
     if ( navigator.geolocation )
     {
@@ -139,37 +139,41 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
 }
 {/literal}
 </script>
+
+{def
+    $address = '' $address_from_attributes = '' $autosearch = false()
+    $address_attributes = ezini( 'GeolocationSettings', 'AddressAttributes', 'ezgmaplocation.ini' )
+    $address_array = array()
+}
+{foreach $address_attributes as $address_attribute}
+    {if and(
+            is_set( $attribute.object.data_map[$address_attribute] ),
+            $attribute.object.data_map[$address_attribute].has_content
+        )
+    }
+        {switch match=$attribute.object.data_map[$address_attribute].data_type_string}
+            {case in = array( 'ezstring', 'ezinteger' )}
+                {set $address_array = $address_array|append( $attribute.object.data_map[$address_attribute].content )}
+            {/case}
+            {case match='ezobjectrelation'}
+                {set $address_array = $address_array|append( $attribute.object.data_map[$address_attribute].content.name )}
+            {/case}
+        {/switch}
+    {/if}
+{/foreach}
+
+{if $address_array}
+    {set $address_from_attributes = $address_array|implode( ', ' )|wash()}
+    {set $autosearch = ezini( 'GeolocationSettings', 'AutoSearch', 'ezgmaplocation.ini' )|eq( 'true' )}
+{/if}
+    
 {/run-once}
 
-{def $address='' $autosearch=false()}
 
 {if $attribute.has_content}
-	{set $address=$attribute.content.address}
+    {set $address = $attribute.content.address}
 {else}
-	{def
-		$address_attributes=ezini('GeolocationSettings', 'AddressAttributes', 'ezgmaplocation.ini')
-		$address_array=array()
-	}
-	{foreach $address_attributes as $address_attribute}
-		{if and(
-				is_set($attribute.object.data_map[$address_attribute]),
-				$attribute.object.data_map[$address_attribute].has_content
-			)
-		}
-			{switch match=$attribute.object.data_map[$address_attribute].data_type_string}
-				{case in=array('ezstring', 'ezinteger')}
-					{set $address_array=$address_array|append($attribute.object.data_map[$address_attribute].content)}
-				{/case}
-				{case match='ezobjectrelation'}
-					{set $address_array=$address_array|append($attribute.object.data_map[$address_attribute].content.name)}
-				{/case}
-			{/switch}
-		{/if}
-	{/foreach}
-	{if $address_array}
-		{set $address=$address_array|implode(', ')|wash()}
-		{set $autosearch=ezini('GeolocationSettings', 'AutoSearch', 'ezgmaplocation.ini')|compare(true)}
-	{/if}
+    {set $address = $adress_from_attributes}
 {/if}
 
 <script type="text/javascript">
