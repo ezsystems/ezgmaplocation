@@ -12,7 +12,7 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor={ezini('GMapSettings', 'UseSensor', 'ezgmaplocation.ini')}"></script>
 <script type="text/javascript">
 {literal}
-function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
+function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearch )
 {
     var mapid = 'ezgml-map-' + attributeId;
     var latid  = 'ezcoa-' + latLongAttributeBase + '_latitude';
@@ -31,7 +31,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
                 if ( status == google.maps.GeocoderStatus.OK )
                 {
                     map.setOptions( { center: results[0].geometry.location, zoom : zoommax } );
-										marker.setPosition(  results[0].geometry.location );
+                                        marker.setPosition(  results[0].geometry.location );
                     updateLatLngFields( results[0].geometry.location );
                 }
                 else
@@ -91,10 +91,10 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         { 'gearsRequestAddress': true });
     };
 
-		var startPoint = null;
-		var zoom = 0;
-		var map = null;
-		var marker = null;
+        var startPoint = null;
+        var zoom = 0;
+        var map = null;
+        var marker = null;
         
     if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
     {
@@ -109,22 +109,25 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
     map = new google.maps.Map( document.getElementById( mapid ), { center: startPoint, zoom : zoom, mapTypeId: google.maps.MapTypeId.ROADMAP } );
     marker = new google.maps.Marker({ map: map, position: startPoint, draggable: true });
     google.maps.event.addListener( marker, 'dragend', function( event ){
-    	updateLatLngFields( event.latLng );
-			document.getElementById( addressid ).value = '';
+        updateLatLngFields( event.latLng );
+            document.getElementById( addressid ).value = '';
     })
     
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener( map, 'click', function( event )
     {
-			marker.setPosition( event.latLng );
-			map.panTo( event.latLng );
-			updateLatLngFields( event.latLng );
-			document.getElementById( addressid ).value = '';
+            marker.setPosition( event.latLng );
+            map.panTo( event.latLng );
+            updateLatLngFields( event.latLng );
+            document.getElementById( addressid ).value = '';
      });
 
 
     document.getElementById( 'ezgml-address-button-' + attributeId ).onclick = showAddress;
     document.getElementById( 'ezgml-restore-button-' + attributeId ).onclick = restoretLatLngFields;
+
+    if ( autoSearch )
+        showAddress();
 
     if ( navigator.geolocation )
     {
@@ -136,20 +139,55 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
 }
 {/literal}
 </script>
+
+{def
+    $address = '' $address_from_attributes = '' $autosearch = false()
+    $address_attributes = ezini( 'GeolocationSettings', 'AddressAttributes', 'ezgmaplocation.ini' )
+    $address_array = array()
+}
+{foreach $address_attributes as $address_attribute}
+    {if and(
+            is_set( $attribute.object.data_map[$address_attribute] ),
+            $attribute.object.data_map[$address_attribute].has_content
+        )
+    }
+        {switch match=$attribute.object.data_map[$address_attribute].data_type_string}
+            {case in = array( 'ezstring', 'ezinteger' )}
+                {set $address_array = $address_array|append( $attribute.object.data_map[$address_attribute].content )}
+            {/case}
+            {case match='ezobjectrelation'}
+                {set $address_array = $address_array|append( $attribute.object.data_map[$address_attribute].content.name )}
+            {/case}
+        {/switch}
+    {/if}
+{/foreach}
+
+{if $address_array}
+    {set $address_from_attributes = $address_array|implode( ', ' )|wash()}
+    {set $autosearch = ezini( 'GeolocationSettings', 'AutoSearch', 'ezgmaplocation.ini' )|eq( 'true' )}
+{/if}
+    
 {/run-once}
+
+
+{if $attribute.has_content}
+    {set $address = $attribute.content.address}
+{else}
+    {set $address = $adress_from_attributes}
+{/if}
 
 <script type="text/javascript">
 <!--
 
 if ( window.addEventListener )
-    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim}, false);
+    window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}", {if $autosearch}true{else}false{/if} ) {rdelim}, false);
 else if ( window.attachEvent )
-    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim} );
+    window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}", {if $autosearch}true{else}false{/if} ) {rdelim} );
 
 -->
 </script>
 
-    <input type="text" id="ezgml-address-{$attribute.id}" size="62" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
+    <input type="text" id="ezgml-address-{$attribute.id}" size="62" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$address}"/>
     <input class="button" type="button" id="ezgml-address-button-{$attribute.id}" value="{'Find address'|i18n('extension/ezgmaplocation/datatype')}"/>
     <input class="button-disabled" type="button" id="ezgml-restore-button-{$attribute.id}" value="{'Restore'|i18n('extension/ezgmaplocation/datatype')}" onclick="javascript:void( null ); return false" disabled="disabled"  title="{'Restores location and address values to what it was on page load.'|i18n('extension/ezgmaplocation/datatype')}" />
 
