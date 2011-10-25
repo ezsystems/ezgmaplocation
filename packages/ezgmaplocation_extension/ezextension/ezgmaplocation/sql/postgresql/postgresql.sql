@@ -9,4 +9,4 @@ CREATE TABLE ezgmaplocation (
 ALTER TABLE ONLY ezgmaplocation
     ADD CONSTRAINT ezgmaplocation_pkey PRIMARY KEY (contentobject_attribute_id, contentobject_version);
 
-CREATE INDEX ezgml_latitude_longitude_key ON ezgmaplocation USING btree (latitude, longitude);
+CREATE INDEX latitude_longitude_key ON ezgmaplocation USING btree (latitude, longitude);
