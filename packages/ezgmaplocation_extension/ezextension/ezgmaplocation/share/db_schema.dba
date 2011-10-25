@@ -28,13 +28,13 @@ $schema = array (
       ),
       'latitude' => 
       array (
-        'type' => 'float',
+        'type' => 'double',
         'not_null' => '1',
         'default' => '0',
       ),
       'longitude' => 
       array (
-        'type' => 'float',
+        'type' => 'double',
         'not_null' => '1',
         'default' => '0',
       ),
