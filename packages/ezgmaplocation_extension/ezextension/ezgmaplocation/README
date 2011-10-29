@@ -23,13 +23,13 @@ And update the autoload array by clicking "Regenerate autoload arrays for extens
 
 4.) Add your GmapsKey to the site.ini under [SiteSettings] like so:
 GMapsKey=<Long string of characters from Google>
-(You can do this pr siteaccess if you want)
+(You can do this per siteaccess if you want)
 
 5.) Apply the ezgmaplocation table to your database with the included sql file:
 <eZP root>/extension/ezgmaplocation/sql/mysql/mysql.sql
 Using either phpmyadmin (easiest) or shell/console commands.
 
-Sql files are also provided for postgressql and oracle - refer to the
+Sql files are also provided for postgresql and oracle - refer to the
 database documentation on how to execute queries from a command-line clients
 
 6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
@@ -39,19 +39,19 @@ Use (editing)
 ---------------
 1. Type in the address you want to find beneath the map.
 2. Click 'Find address'
-3. Click 'Update Values' to grab the cordniates.
+3. Click 'Update Values' to grab the coordinates.
 
 Repeat to change.
 Unless you change the marker on the map, the address will be saved as you typed it.
-This address is searcable! (see bellow for filtering / sorting on cordinates as well)
+This address is searchable! (see below for filtering / sorting on coordinates as well)
 
 
 Use (fetching)
 ---------------
 
 For fetching multiple nodes based on location, you can use the included ezgmlLocationFilter.
-Example fetches users in a distance of roughly 30-50km from Oslo, Norway. And sorts the
-results based on how close the nodes are to the given cordinate.
+Example fetches users in a distance of roughly 30-50km from Oslo, Norway, and sorts the
+results based on how close the nodes are to the given coordinates.
 
 
 {def $users_close_by = fetch( 'content', 'tree', hash(
@@ -65,10 +65,10 @@ results based on how close the nodes are to the given cordinate.
                                                                                                               'distance', 0.5 ) )
                               ) )}
 
- Note that the distance filter is using a 'bounding box' for sql speed, see classes/ezgmllocationfilter.php for more info 
- and paramerters to be able to get true ('arccosine') or closer to true ('pythagorean') circular distance filter accuracy.
- The sort on the other hand is accurate, so if your main concerne is to show closets node, then the filter is ok by default.
- 
+ Note that the distance filter is using a 'bounding box' for sql speed, see classes/ezgmllocationfilter.php for more info
+ and parameters to be able to get true ('arccosine') or closer to true ('pythagorean') circular distance filter accuracy.
+ The sort on the other hand is accurate, so if your main concern is to show the closest node, then the filter is ok by default.
+
  Also see 'arccosine' parameter in combination with 'as_object', false() to be able to get value to easily calculate distance.
  Example use: user x is 2,5 km away from you. Or Oslo, Norway is 416.8km from Stockholm, Sweden.
 
