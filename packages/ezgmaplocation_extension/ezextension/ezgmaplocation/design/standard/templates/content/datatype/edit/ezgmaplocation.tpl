@@ -31,7 +31,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
                 if ( status == google.maps.GeocoderStatus.OK )
                 {
                     map.setOptions( { center: results[0].geometry.location, zoom : zoommax } );
-                                        marker.setPosition(  results[0].geometry.location );
+                    marker.setPosition(  results[0].geometry.location );
                     updateLatLngFields( results[0].geometry.location );
                 }
                 else
@@ -91,10 +91,10 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
         { 'gearsRequestAddress': true });
     };
 
-        var startPoint = null;
-        var zoom = 0;
-        var map = null;
-        var marker = null;
+    var startPoint = null;
+    var zoom = 0;
+    var map = null;
+    var marker = null;
         
     if ( document.getElementById( latid ).value && document.getElementById( latid ).value != 0 )
     {
@@ -110,16 +110,16 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase, autoSearc
     marker = new google.maps.Marker({ map: map, position: startPoint, draggable: true });
     google.maps.event.addListener( marker, 'dragend', function( event ){
         updateLatLngFields( event.latLng );
-            document.getElementById( addressid ).value = '';
+        document.getElementById( addressid ).value = '';
     })
     
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener( map, 'click', function( event )
     {
-            marker.setPosition( event.latLng );
-            map.panTo( event.latLng );
-            updateLatLngFields( event.latLng );
-            document.getElementById( addressid ).value = '';
+        marker.setPosition( event.latLng );
+        map.panTo( event.latLng );
+        updateLatLngFields( event.latLng );
+        document.getElementById( addressid ).value = '';
      });
 
 
