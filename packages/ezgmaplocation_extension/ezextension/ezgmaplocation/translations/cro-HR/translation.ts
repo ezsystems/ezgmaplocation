@@ -29,15 +29,15 @@
     </message>
     <message>
         <source>My current location</source>
-        <translation type="unfinished">Moja trenutna pozicija</translation>
+        <translation>Moja trenutna pozicija</translation>
     </message>
     <message>
         <source>Restores location and address values to what it was on page load.</source>
-        <translation type="unfinished">Vraća poziciju i adresu na vrijednosti koje su bile prilikom učitavanja stranice.</translation>
+        <translation>Vraća poziciju i adresu na vrijednosti koje su bile prilikom učitavanja stranice.</translation>
     </message>
     <message>
         <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
-        <translation>Dohvaća vašu trenutnu poziciju ako vaš preglednik podržava geolokaciju i ako dozvolite ovoj stranici pristup geolokaciji! Najtočnije, ako imate ugrađen GPS u vašem uređaju. Također, može se desiti da adresu morate upisati ručno!</translation>
+        <translation>Dohvaća vašu trenutnu poziciju ako vaš preglednik podržava geolokaciju i ako dozvolite ovoj stranici pristup geolokaciji! Pozicija će biti najtočnija ako imate ugrađen GPS u vašem uređaju. Također, može se desiti da adresu morate upisati ručno!</translation>
     </message>
     <message>
         <source>GMap Location</source>
