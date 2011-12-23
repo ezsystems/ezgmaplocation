@@ -139,14 +139,10 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
 {/run-once}
 
 <script type="text/javascript">
-<!--
-
 if ( window.addEventListener )
     window.addEventListener('load', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim}, false);
 else if ( window.attachEvent )
     window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapControl( {$attribute.id}, "{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}" ) {rdelim} );
-
--->
 </script>
 
     <input type="text" id="ezgml-address-{$attribute.id}" size="62" name="{$attribute_base}_data_gmaplocation_address_{$attribute.id}" value="{$attribute.content.address}"/>
