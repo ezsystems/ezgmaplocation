@@ -30,14 +30,10 @@ function eZGmapLocation_MapView( attributeId, latitude, longitude )
 
 {if $attribute.has_content}
 <script type="text/javascript">
-<!--
-
 if ( window.addEventListener )
     window.addEventListener('load', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $latitude, '0.0')}, {first_set( $longitude, '0.0')} ) {rdelim}, false);
 else if ( window.attachEvent )
     window.attachEvent('onload', function(){ldelim} eZGmapLocation_MapView( {$attribute.id}, {first_set( $latitude, '0.0')}, {first_set( $longitude, '0.0')} ) {rdelim} );
-
--->
 </script>
 
 <div class="block">
