@@ -3,7 +3,7 @@
     {def $width=500}
 {/if}
 {if is_unset( $height )}
-    {def $height=500}
+    {def $height=280}
 {/if}
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
