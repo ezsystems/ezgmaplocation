@@ -1,4 +1,6 @@
 {* Make sure to normalize floats from db  *}
+{default width=500
+         height=280}
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 {run-once}
@@ -45,5 +47,5 @@ else if ( window.attachEvent )
 </div>
 
 <label>{'Map'|i18n('extension/ezgmaplocation/datatype')}:</label>
-<div id="ezgml-map-{$attribute.id}" style="width: 500px; height: 280px;"></div>
+<div id="ezgml-map-{$attribute.id}" style="width: {$width}px; height: {$height}px;"></div>
 {/if}
