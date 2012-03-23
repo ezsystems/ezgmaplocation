@@ -1,6 +1,10 @@
 {* Make sure to normalize floats from db  *}
-{default width=500
-         height=280}
+{if is_unset( $width )}
+    {def $width=500}
+{/if}
+{if is_unset( $height )}
+    {def $height=500}
+{/if}
 {def $latitude  = $attribute.content.latitude|explode(',')|implode('.')
      $longitude = $attribute.content.longitude|explode(',')|implode('.')}
 {run-once}
