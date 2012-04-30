@@ -32,7 +32,7 @@ Using either phpmyadmin (easiest) or shell/console commands.
 Sql files are also provided for postgresql and oracle - refer to the
 database documentation on how to execute queries from a command-line clients
 
-6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes.
+6.) Now you can add the ezgmaplocation datatype like any other datatype when editing classes, or add a ezxmltext custom tag that renders a map.
 
 
 Use (editing)
@@ -72,3 +72,10 @@ results based on how close the nodes are to the given coordinates.
  Also see 'arccosine' parameter in combination with 'as_object', false() to be able to get value to easily calculate distance.
  Example use: user x is 2,5 km away from you. Or Oslo, Norway is 416.8km from Stockholm, Sweden.
 
+
+Use (ezxmltext custom tag)
+---------------------------
+
+While editing an XML block, add a custom tag (<?> icon on eZOE toolbar), choose googlemap and relevant marker and container data,
+such as latitude, longitude, zoom level and map size. Beware, there is no actual geocoding of the address attribute, which is used just as a
+string rendered before the map.

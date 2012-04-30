@@ -52,5 +52,18 @@
         <source>Invalid Latitude/Longitude input.</source>
         <translation>Inserimento della Latitudine/Longitudine non valido.</translation>
     </message>
+    <message>
+        <source>Get directions from:</source>
+        <translation>Calcola il percorso da:</translation>
+    </message>
+    <message>
+        <source>From address</source>
+        <translation>Indirizzo di partenza</translation>
+    </message>
+    <message>
+        <source>Get Directions</source>
+        <translation>Calcola il percorso</translation>
+    </message>
+
 </context>
 </TS>

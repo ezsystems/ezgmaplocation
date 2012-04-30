@@ -18,7 +18,8 @@ content/edit:
 content/view:
 * use zoom level and map type as stored in content/edit
 
+ezxmltext custom tag:
+* Be able to visually edit the marker and zoom level
 
 General:
 * Merge back gmap.tpl from gmaplocation datatype for showing several nodes on a map
-* Add ezxmltext custom tag for inserting map in content 
