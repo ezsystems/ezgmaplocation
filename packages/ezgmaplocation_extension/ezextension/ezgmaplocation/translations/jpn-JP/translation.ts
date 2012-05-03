@@ -6,15 +6,15 @@
     <message>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation type="unfinished">Googleマップロケーション</translation>
+        <translation>Googleマップロケーション</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
-        <translation type="unfinished">緯度/軽度は入力されていません。</translation>
+        <translation>緯度/軽度は入力されていません。</translation>
     </message>
     <message>
         <source>Invalid Latitude/Longitude input.</source>
-        <translation type="unfinished">緯度/軽度は無効です。</translation>
+        <translation>緯度/軽度は無効です。</translation>
     </message>
     <message>
         <source>Latitude</source>
