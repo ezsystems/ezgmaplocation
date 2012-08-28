@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package version="1.0.0" development="false" install_type="install">
+<package version="5.0.0" development="false" install_type="install">
   <name>ezgmaplocation_extension</name>
   <summary>ezgmaplocation extension</summary>
   <description>This package contains the ezgmaplocation eZ Publish extension</description>
