@@ -6,7 +6,7 @@
     <message>
         <source>GMap Location</source>
         <comment>Nazwa typu danych</comment>
-        <translation>Lokalizacja Google Map</translation>
+        <translation type="obsolete">Lokalizacja Google Map</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
@@ -26,7 +26,7 @@
     </message>
     <message>
         <source>Update Location</source>
-        <translation>Uaktualnij lokalizację</translation>
+        <translation type="obsolete">Uaktualnij lokalizację</translation>
     </message>
     <message>
         <source>Restore</source>
@@ -34,7 +34,7 @@
     </message>
     <message>
         <source>Update values</source>
-        <translation>Aktualizuj wartości</translation>
+        <translation type="obsolete">Aktualizuj wartości</translation>
     </message>
     <message>
         <source>Find address</source>
@@ -59,6 +59,11 @@
     <message>
         <source>Gets your current position if your browser support GeoLocation and you grant this website access to it! Most accurate if you have a built in gps in your Internet device! Also note that you might still have to type in address manually!</source>
         <translation>Pobierz bieżącą lokalizację jeśli przeglądarka obsługuje geolokalizację i zezwolisz tej stronie na tą funkcjonalność!</translation>
+    </message>
+    <message>
+        <source>GMap Location</source>
+        <comment>Datatype name</comment>
+        <translation type="unfinished">Lokalizacja Google Map</translation>
     </message>
 </context>
 </TS>
