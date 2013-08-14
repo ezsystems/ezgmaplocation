@@ -1,7 +1,6 @@
 <?php /*
 
 [DataTypeSettings]
-ExtensionDirectories[]=ezgmaplocation
-AvailableDataTypes[]=ezgmaplocation
+AvailableDataTypes[ezgmaplocation]=eZGmapLocationType
 
 */ ?>
