@@ -385,6 +385,4 @@ class eZGmapLocationType extends eZDataType
     }
 }
 
-eZDataType::register( eZGmapLocationType::DATA_TYPE_STRING, 'eZGmapLocationType' );
-
 ?>
