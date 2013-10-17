@@ -6,7 +6,7 @@
     <message>
         <source>GMap Location</source>
         <comment>Datatype name</comment>
-        <translation>Nome do tipo de dado</translation>
+        <translation>Localização GMap</translation>
     </message>
     <message>
         <source>Missing Latitude/Longitude input.</source>
