@@ -11,6 +11,7 @@
 {run-once}
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor={ezini('GMapSettings', 'UseSensor', 'ezgmaplocation.ini')}"></script>
 <script type="text/javascript">
+    var coordinateSystem="{ezini('GMapSettings', 'System', 'ezgmaplocation.ini')}";
 {literal}
 function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
 {
@@ -48,6 +49,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         document.getElementById(longid).value = point.lng();
         document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = false;
         document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button';
+        updateGD();
     };
 
     var restoretLatLngFields = function()
@@ -64,6 +66,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         }
         document.getElementById( 'ezgml-restore-button-' + attributeId ).disabled = true;
         document.getElementById( 'ezgml-restore-button-' + attributeId ).className = 'button-disabled';
+        updateGD();
         return false;
     };
 
@@ -83,6 +86,7 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
             map.setOptions( {zoom: zoommax, center: point} );
             marker.setPosition( point );
             updateLatLngFields( point );
+            updateGD();
         },
         function( e )
         {
@@ -133,6 +137,71 @@ function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )
         document.getElementById( 'ezgml-mylocation-button-' + attributeId ).disabled = false;
     }
  
+    var updateDMS = function()
+    {
+        $('input[id$="latitude"]').val(($('select[id*="lat_hemisphere"]').val() == "S" ? "-1" : "1") * 
+            Math.round(
+               (parseFloat($('input[id*="lat_degrees"]').val()) + 
+                parseFloat($('input[id*="lat_minutes"]').val() / 60) + 
+                parseFloat($('input[id*="lat_seconds"]').val() / 3600)
+               ) * 1000000) / 1000000);
+        $('input[id$="longitude"]').val(($('select[id*="lon_meridian"]').val() == "W" ? "-1" : "1") * 
+            Math.round(
+               (parseFloat($('input[id*="lon_degrees"]').val()) + 
+                parseFloat($('input[id*="lon_minutes"]').val() / 60) + 
+                parseFloat($('input[id*="lon_seconds"]').val() / 3600)
+               ) * 1000000) / 1000000);
+
+    }
+
+    var updateGD = function()
+    {
+        var _lat = parseFloat($('input[id$="latitude"]').val());
+        if(_lat)
+        {
+            $('select[id*="lat_hemisphere"]').val(_lat > 0 ? "N" : "S");
+            var _lat = Math.abs(_lat);
+            $('input[id*="lat_degrees"]').val(Math.floor(_lat)); _lat = _lat -Math.floor(_lat);
+            $('input[id*="lat_minutes"]').val(Math.floor(_lat * 60)); _lat = _lat - Math.floor(_lat * 60) / 60;
+            $('input[id*="lat_seconds"]').val(Math.floor(_lat * 360000)/100);
+        }
+
+        var _lon = parseFloat($('input[id$="longitude"]').val());
+        if(_lon)
+        {
+            $('select[id*="lon_meridian"]').val(_lon > 0 ? "E" : "W");
+            var _lon = Math.abs(_lon);
+            $('input[id*="lon_degrees"]').val(Math.floor(_lon)); _lon = _lon -Math.floor(_lon);
+            $('input[id*="lon_minutes"]').val(Math.floor(_lon * 60)); _lon = _lon - Math.floor(_lon * 60) / 60;
+            $('input[id*="lon_seconds"]').val(Math.floor(_lon * 360000)/100);
+        }
+    }
+
+    if ( coordinateSystem == "degrees" ){
+        $( "#label_degrees_" + attributeId ).css("display", "");
+        $( "#lat_degrees_block_" + attributeId ).css("display", "");
+        $( "#lon_degrees_block_" + attributeId ).css("display", "");
+        $( "#lat_decimal_block_" + attributeId ).css("display", "none");
+        $( "#lon_decimal_block_" + attributeId ).css("display", "none");
+        $( "#lat_degrees_" + attributeId ).bind( "change", updateDMS);
+        $( "#lat_minutes_" + attributeId ).bind( "change", updateDMS);
+        $( "#lat_seconds_" + attributeId ).bind( "change", updateDMS);
+        $( "#lat_hemisphere_" + attributeId ).bind( "change", updateDMS);
+        $( "#lon_degrees_" + attributeId ).bind( "change", updateDMS);
+        $( "#lon_minutes_" + attributeId ).bind( "change", updateDMS);
+        $( "#lon_seconds_" + attributeId ).bind( "change", updateDMS);
+        $( "#lon_meridian_" + attributeId ).bind( "change", updateDMS);
+
+        $( "#" + latid ).bind("change", updateGD);;
+        $( "#" + longid ).bind("change", updateGD);;
+
+        updateGD();
+    }
+    else
+    {
+        $( "#lat_decimal_block_" + attributeId ).css("display", "");
+        $( "#lon_decimal_block_" + attributeId ).css("display", "");
+    }
 }
 {/literal}
 </script>
@@ -155,15 +224,40 @@ else if ( window.attachEvent )
     <div id="ezgml-map-{$attribute.id}" style="width: 500px; height: 280px; margin-top: 2px;"></div>
 </div>
 
-<div class="element">
-  <div class="block">
+<br /><br /><div class="element">
+  <div id="label_degrees_{$attribute.id}" class="block" style="display:none;">
+    <label>Degrees - Minutes - Seconds</label>
+  </div>
+  
+  <div class="element">
+  <div id="lat_decimal_block_{$attribute.id}" class="block" style="display:none;">
     <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
     <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_latitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_latitude_{$attribute.id}" value="{$latitude}" />
   </div>
+  <div id="lat_degrees_block_{$attribute.id}" class="block" style="display:none;">
+    <label>{'Latitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
+    <input id="lat_degrees_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:26px;text-align:right;" />º
+    <input id="lat_minutes_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:26px;text-align:right;" />'
+    <input id="lat_seconds_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:52px;text-align:right;" />''
+    <select id="lat_hemisphere_{$attribute.id}">
+      <option selected="selected" value="N">N</option>
+      <option value="S">S</option>
+    </select>
+  </div>
   
-  <div class="block">
+  <div id="lon_decimal_block_{$attribute.id}" class="block" style="display:none;">
     <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
-    <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_longitude_{$attribute.id}" value="{$longitude}" />
+    <input id="ezcoa-{if ne( $attribute_base, 'ContentObjectAttribute' )}{$attribute_base}-{/if}{$attribute.contentclassattribute_id}_{$attribute.contentclass_attribute_identifier}_longitude" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" name="{$attribute_base}_data_gmaplocation_longitude_{$attribute.id}" value="{$longitude}" onchange="javascript:updateGD();" />
+  </div>
+  <div id="lon_degrees_block_{$attribute.id}" class="block" style="display:none;">
+    <label>{'Longitude'|i18n('extension/ezgmaplocation/datatype')}:</label>
+    <input id="lon_degrees_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:26px;text-align:right;" />º
+    <input id="lon_minutes_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:26px;text-align:right;" />'
+    <input id="lon_seconds_{$attribute.id}" class="box ezcc-{$attribute.object.content_class.identifier} ezcca-{$attribute.object.content_class.identifier}_{$attribute.contentclass_attribute_identifier}" type="text" style="width:52px;text-align:right;" />''
+    <select id="lon_meridian_{$attribute.id}">
+      <option selected="selected" value="W">W</option>
+      <option value="E">E</option>
+    </select>
   </div>
 
   <div class="block">
