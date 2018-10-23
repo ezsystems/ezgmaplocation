@@ -9,7 +9,7 @@
 
 <div class="element">
 {run-once}
-<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor={ezini('GMapSettings', 'UseSensor', 'ezgmaplocation.ini')}"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key={ezini('GMapSettings', 'ApiKey', 'ezgmaplocation.ini')}&sensor={ezini('GMapSettings', 'UseSensor', 'ezgmaplocation.ini')}"></script>
 <script type="text/javascript">
 {literal}
 function eZGmapLocation_MapControl( attributeId, latLongAttributeBase )

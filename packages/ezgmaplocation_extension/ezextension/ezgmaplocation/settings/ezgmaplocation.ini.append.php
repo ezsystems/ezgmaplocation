@@ -2,5 +2,6 @@
 
 [GMapSettings]
 UseSensor=false
+ApiKey=
 
 */?>
