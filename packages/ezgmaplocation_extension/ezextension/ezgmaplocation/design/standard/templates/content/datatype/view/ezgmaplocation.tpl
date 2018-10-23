@@ -1,5 +1,5 @@
 {if is_unset( $width )}
-    {def $width=500}
+    {def $width=450}
 {/if}
 {if is_unset( $height )}
     {def $height=280}
