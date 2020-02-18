@@ -30,9 +30,6 @@
 
 class ezgmlLocationFilter
 {
-    function ezgmlLocationFilter()
-    {
-    }
 
     function createSqlParts( $params )
     {
